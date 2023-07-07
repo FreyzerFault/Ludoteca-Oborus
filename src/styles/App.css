@@ -80,7 +80,7 @@ main {
 
 .grid .boardgame-card {
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
   height: auto;
   gap: 10px;

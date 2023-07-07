@@ -1,0 +1,34 @@
+{
+  "lists": [
+    {
+      "id": "gfKT5KYw8B",
+      "name": "Prev. Owned",
+      "gameCount": 2,
+      "imageUrl": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257316604-51yCizg1ecL.jpg",
+      "thumbUrl": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257316604-51yCizg1ecL.jpg",
+      "url": "/u/Oborus/gfKT5KYw8B/prev-owned",
+      "images": {
+        "thumb": "https://d2k4q26owzy373.cloudfront.net/40x40/games/uploaded/1559257316604-51yCizg1ecL.jpg?format=webp",
+        "small": "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1559257316604-51yCizg1ecL.jpg?format=webp",
+        "medium": "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1559257316604-51yCizg1ecL.jpg?format=webp",
+        "large": "https://d2k4q26owzy373.cloudfront.net/700x700/games/uploaded/1559257316604-51yCizg1ecL.jpg?format=webp",
+        "original": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559257316604-51yCizg1ecL.jpg"
+      }
+    },
+    {
+      "id": "Sca0fP2tsu",
+      "name": "Owned",
+      "gameCount": 116,
+      "imageUrl": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1633105252133",
+      "thumbUrl": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1633105252133",
+      "url": "/u/Oborus/Sca0fP2tsu/owned",
+      "images": {
+        "thumb": "https://d2k4q26owzy373.cloudfront.net/40x40/games/uploaded/1633105252133?format=webp",
+        "small": "https://d2k4q26owzy373.cloudfront.net/150x150/games/uploaded/1633105252133?format=webp",
+        "medium": "https://d2k4q26owzy373.cloudfront.net/350x350/games/uploaded/1633105252133?format=webp",
+        "large": "https://d2k4q26owzy373.cloudfront.net/700x700/games/uploaded/1633105252133?format=webp",
+        "original": "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1633105252133"
+      }
+    }
+  ]
+}

@@ -86,10 +86,126 @@ export function processData(data) {
   const mappedGames = boardGames?.map((item) => ({
     id: item._objectid,
     name: item.name.toString(),
-    thumbnail: item.thumbnail,
-    image: item.image,
+    thumbnailUrl: item.thumbnail,
+    imageUrl: item.image,
     year: item.yearpublished,
     subtype: item._subtype,
   }))
   return mappedGames
+}
+
+// ============================== AUTH ==============================
+const BGGLOGIN_URL = 'https://boardgamegeek.com/login/api/v1'
+
+function loginBGG({ username, password }) {
+  return fetch(BGGLOGIN_URL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    body: JSON.stringify({
+      credentials: {
+        username,
+        password,
+      },
+    }),
+  }).then((res) => {
+    // setup session cookie
+    // "bggusername=Freyzer; bggpassword=Freyzer0.; SessionID=SESSIONID;"
+    let sessionCoockie = ''
+
+    console.log(res)
+
+    // console.log(res)
+    // console.log(res.headers)
+    // console.log(res.body)
+
+    for (let cookie in res.headers['set-cookie'].split(';')) {
+      if (cookie.startsWith('bggusername')) {
+        sessionCookie += (cookie.length > 0 ? ' ' : '') + cookie + ';'
+        continue
+      }
+      let idx = cookie.indexOf('bggpassword=')
+      if (idx != -1) {
+        sessionCookie +=
+          (cookie.length > 0 ? ' ' : '') +
+          'bggpassword=' +
+          cookie.substring(idx + 12) +
+          ';'
+        continue
+      }
+      idx = cookie.indexOf('SessionID=')
+      if (idx != -1) {
+        sessionCookie +=
+          (cookie.length > 0 ? ' ' : '') +
+          'SessionID=' +
+          cookie.substring(idx + 10) +
+          ';'
+        continue
+      }
+    }
+    return sessionCoockie
+  })
+}
+
+// ============================== POST ==============================
+const BGGUPLOAD_URL = 'https://boardgamegeek.com/geekplay.php'
+export function postPlay() {
+  const game = { bggId: 195856 }
+  const players = [
+    {
+      name: 'Freyzer',
+      username: 'Freyzer',
+      score: 100,
+      win: true,
+    },
+    {
+      name: 'Oborus',
+      username: '',
+      score: 100,
+      win: null,
+    },
+  ]
+  const play = {
+    objectid: game.bggId,
+    date: '',
+    location: 'Oborus',
+    playdate: '',
+    players: players,
+    ajax: 1,
+    objecttype: 'thing',
+    action: 'save',
+    quantity: 1,
+    length: 0,
+  }
+
+  fetch('https://www.boardgamegeek.com/geeklist/item/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(play),
+  }).then((res) => {
+    console.log(res.status)
+  })
+
+  loginBGG({ username: 'Freyzer', password: 'Freyzer0.' })
+    .then((coockie) => {
+      return fetch(BGGUPLOAD_URL, {
+        method: 'POST',
+        headers: {
+          cookie: coockie,
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        body: JSON.stringify(play),
+      })
+    })
+    .then((res) => {
+      if (res.status >= 500) console.error('ERROR DEL SERVIDOR')
+      else if (res.status >= 400) console.error('ERROR DE CONEXION')
+      else console.log('SE HA PUBLICADO LA PLAY')
+    })
+    .catch((e) => console.error(e))
 }
