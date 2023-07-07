@@ -5,7 +5,9 @@ import { useState, useEffect, useRef } from 'react'
 
 export function useSearchAsync({
   initialSearch,
-  queryFunction = () => {},
+  mock,
+  queryFunction = ({ search }) => {},
+  queryFunctionMock = ({ search }) => {},
   delay = 1000,
 }) {
   const [searchValue, setSearchValue] = useState(initialSearch)
@@ -25,7 +27,7 @@ export function useSearchAsync({
 
     // Evitar buscar el mismo termino mas veces
     {
-      if (searchValue === lastSearch.current) {
+      if (!mock && searchValue === lastSearch.current) {
         return
       }
 
@@ -33,7 +35,14 @@ export function useSearchAsync({
     }
 
     setLoading(true)
-    queryFunction(searchValue)
+
+    console.log('MOCK: ', mock)
+    // Se elige una funcion u otra dependiendo de si se usan datos falsos o no
+    const promiseQuery = mock
+      ? queryFunctionMock({ search: searchValue })
+      : queryFunction({ search: searchValue })
+
+    promiseQuery
       .then((data) => {
         setQueryData(data)
       })
@@ -44,7 +53,7 @@ export function useSearchAsync({
       .finally(() => {
         setLoading(false)
       })
-  }, [searchValue])
+  }, [searchValue, mock])
 
   return { searchValue, setSearchValue, queryData, error, loading }
 }

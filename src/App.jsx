@@ -1,6 +1,6 @@
 import './styles/App.css'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { getCollection } from './services/bgg'
 import { getCollectionMock } from './services/bggMock'
@@ -20,31 +20,44 @@ function App() {
 
   return (
     <main>
-      <section>
-        <button
-          onClick={(e) =>
-            // authenticate({ username: 'Freyzer', password: 'Freyzer0.' })
-            postPlay()
-          }
-        >
-          TEST
-        </button>
+      {/* // Activa los Datos de Prueba, esconder en prod */}
+      <section onClick={(e) => setMock(!mock)} className='mock-activator'>
+        <span>Datos de prueba</span>
+        <input
+          type='checkbox'
+          checked={mock}
+          value={mock}
+          onChange={(e) => setMock(e.target.checked)}
+        />
       </section>
 
-      {/* <h1>ULTRA-BUSCADOR de JUEGOS DE MESA</h1>
+      <h1>ULTRA-BUSCADOR de JUEGOS DE MESA</h1>
 
       <SearchBar
         gridDisplay={true}
         ComponentCardTemplateForResult={BoardGameCard}
+        mock={mock}
       />
 
       <section>
-        <BoardGameCollection username={'Oborus'}></BoardGameCollection>
+        <BoardGameCollection
+          mock={mock}
+          username={'Oborus'}
+        ></BoardGameCollection>
       </section>
 
-      <section>
-        <BoardGameCollectionView mock={mock} showExpansions username='Oborus' />
-      </section> */}
+      {false && (
+        <section>
+          <button
+            onClick={(e) =>
+              // authenticate({ username: 'Freyzer', password: 'Freyzer0.' })
+              postPlay()
+            }
+          >
+            TEST POST Request
+          </button>
+        </section>
+      )}
     </main>
   )
 }

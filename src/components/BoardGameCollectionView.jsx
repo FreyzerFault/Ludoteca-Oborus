@@ -46,9 +46,8 @@ export function BoardGameCollectionViewBGA({
   collection_id,
   collectionName,
   showExpansions = true,
-  mock: useMockData = true,
+  mock = true,
 }) {
-  const [mock, setMock] = useState(useMockData)
   const [collection, setCollection] = useState([])
 
   const lastColId = useRef()
@@ -72,18 +71,7 @@ export function BoardGameCollectionViewBGA({
 
   return (
     <>
-      <section className='collection-header'>
-        <section onClick={(e) => setMock(!mock)} className='mock-activator'>
-          <span>Datos de prueba</span>
-          <input
-            type='checkbox'
-            checked={mock}
-            value={mock}
-            onChange={(e) => setMock(e.target.checked)}
-          />
-        </section>
-        <h1>{collectionName}</h1>
-      </section>
+      <h1 className='collection-header'>{collectionName}</h1>
       <section className='grid search-results'>
         <DataList ComponentTemplate={BoardGameCard} data={collection} />
       </section>

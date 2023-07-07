@@ -82,7 +82,9 @@ Consigue la API Key en la propia página web registrando tu email.
 
 TODO:
 
-- Evitar que se haga la misma búsqueda dos veces seguidas.
+✅ Evitar que se haga la misma búsqueda dos veces seguidas.
+✅ Muestra primero la colección Owned
+
 - Haz que la búsqueda se haga automáticamente al escribir.
 - Evita que se haga la búsqueda continuamente al escribir (debounce)
 - Busca en TODOS los Juegos de BGG y muestra de forma visual los que pertenecen a Oborus

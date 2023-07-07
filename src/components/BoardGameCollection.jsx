@@ -7,34 +7,47 @@ import {
   BoardGameCollectionViewBGA,
 } from './BoardGameCollectionView'
 
-export function BoardGameCollection({ username }) {
+export function BoardGameCollection({ mock, username }) {
   const [collections, setCollections] = useState([])
 
   useEffect(() => {
-    getCollectionsMock({ username })
+    if (mock) {
+      getCollectionsMock({ username })
+        .then((res) => {
+          setCollections(res)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+      return
+    }
+
+    getCollections({ username })
       .then((res) => {
         setCollections(res)
       })
       .catch((err) => {
         console.error(err)
       })
-  }, [])
+  }, [mock])
 
   return (
     <>
       <h1>Colección de {username}</h1>
       {collections.length > 0 && (
         <section>
-          {collections.map((col) => (
-            <BoardGameCollectionViewBGA
-              key={col.id}
-              collection_id={col.id}
-              collectionName={col.name}
-              mock={false}
-              showExpansions
-              username='Oborus'
-            />
-          ))}
+          {collections
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((col) => (
+              <BoardGameCollectionViewBGA
+                key={col.id}
+                collection_id={col.id}
+                collectionName={col.name}
+                mock={mock}
+                showExpansions
+                username='Oborus'
+              />
+            ))}
         </section>
       )}
     </>

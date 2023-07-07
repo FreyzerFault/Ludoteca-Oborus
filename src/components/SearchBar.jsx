@@ -10,25 +10,20 @@ import { getBoardGamesSearch } from '../services/bga'
 import { getBoardGamesSearchMock } from '../services/bgaMock'
 import { useSearchAsync } from '../hooks/useSearch'
 
-// MOCK de datos
-const useMock = false
-
 export function SearchBar({
+  mock,
   gridDisplay = false,
   ComponentCardTemplateForResult,
 }) {
   // Custom HOOKS
   const { searchValue, setSearchValue, queryData, error, loading } =
-    useSearchAsync(
-      {
-        initialSearch: '',
-        queryFunction: (search) =>
-          useMock
-            ? getBoardGamesSearchMock({ search: search })
-            : getBoardGamesSearch({ search: search }),
-      }
-      // FETCHING de datos por el valor de searchValue
-    )
+    useSearchAsync({
+      initialSearch: '',
+      delay: 1000,
+      mock,
+      queryFunction: getBoardGamesSearch,
+      queryFunctionMock: getBoardGamesSearchMock,
+    })
 
   // REFs (Variables que no se resetean en cada render, persisten)
   // const inputRef = useRef()

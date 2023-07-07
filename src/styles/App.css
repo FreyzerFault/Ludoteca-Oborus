@@ -115,14 +115,9 @@ main {
   top: 50%;
 }
 
-.collection-header {
-  position: relative;
-}
-
 .mock-activator {
-  position: absolute;
-  right: 0;
-  top: -10px;
+  width: max-content;
+  align-self: center;
   box-shadow: 2px -2px 5px black;
   padding-left: 5px;
   cursor: pointer;
