@@ -9,6 +9,7 @@ export function useSearchAsync({
   queryFunction = () => {},
   queryFunctionMock = () => {},
   mock,
+  myCollection = [],
 }) {
   const [searchValue, setSearchValue] = useState(initialSearch)
   const [queryData, setQueryData] = useState(null)
@@ -43,7 +44,7 @@ export function useSearchAsync({
 
     promiseQuery
       .then((data) => {
-        setQueryData(data)
+        setQueryData(addOwnedTag(data, myCollection))
       })
       .catch((e) => {
         setError(e)
@@ -53,9 +54,29 @@ export function useSearchAsync({
       .finally(() => {
         setLoading(false)
       })
-  }, [searchValue, mock, queryFunctionMock, queryFunction, maxResults])
+  }, [
+    searchValue,
+    mock,
+    queryFunctionMock,
+    queryFunction,
+    maxResults,
+    myCollection,
+  ])
 
   return { searchValue, setSearchValue, queryData, error, loading }
+}
+
+function addOwnedTag(data, ownedCollection) {
+  if (ownedCollection.length > 0) {
+    return data.map((item) => {
+      console.log(ownedCollection.some((colItem) => colItem.id === item.id))
+      return (item = {
+        ...item,
+        // Se añade la propiedad owned a cada item que este dentro de mi coleccion
+        owned: ownedCollection.some((colItem) => colItem.id === item.id),
+      })
+    })
+  }
 }
 
 export function useSearch({ initialSearch, queryFunction = () => {} }) {

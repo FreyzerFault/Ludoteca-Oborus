@@ -17,6 +17,7 @@ export function SearchBar({
   mock = false,
   gridDisplay = false,
   searchAsTyping = false, // Buscar mientras se escribe
+  myCollection = [],
 }) {
   // Custom HOOKS
   const { searchValue, setSearchValue, queryData, error, loading } =
@@ -26,6 +27,7 @@ export function SearchBar({
       queryFunction: getBoardGamesSearch,
       queryFunctionMock: getBoardGamesSearchMock,
       mock,
+      myCollection,
     })
 
   // REFs (Variables que no se resetean en cada render, persisten)
@@ -110,4 +112,5 @@ SearchBar.propTypes = {
   mock: PropTypes.bool,
   searchAsTyping: PropTypes.bool,
   maxResults: PropTypes.number,
+  myCollection: PropTypes.array,
 }

@@ -1,27 +1,15 @@
 import PropTypes from 'prop-types'
 
-import { useCollection } from '../hooks/useCollection'
 import { BoardGameCard } from './BoardGameCard'
 import { DataList } from './DataList'
 
-import { ColType } from '../services/bgg'
-
-export function BoardGameCollection({
-  username = 'oborus',
-  showExpansions = true,
-  mock = false,
-}) {
-  const [collection] = useCollection({
-    mock,
-    showExpansions: showExpansions,
-    username: username,
-    colFilter: ColType.Owned,
-  })
-
+export function BoardGameCollection({ username = 'oborus', collection = [] }) {
   return (
     <>
       <section className='collection-header'>
-        <h1>{collection.length} Juegos de Oborus</h1>
+        <h1>
+          {collection.length} Juegos de {username}
+        </h1>
       </section>
       <section className='grid search-results'>
         <DataList ComponentTemplate={BoardGameCard} data={collection} />
@@ -32,6 +20,5 @@ export function BoardGameCollection({
 
 BoardGameCollection.propTypes = {
   username: PropTypes.string,
-  showExpansions: PropTypes.bool,
-  mock: PropTypes.bool,
+  collection: PropTypes.array,
 }

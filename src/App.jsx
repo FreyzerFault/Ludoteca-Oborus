@@ -1,6 +1,8 @@
 import './styles/App.css'
 
 import { useState } from 'react'
+import { useCollection } from './hooks/useCollection'
+import { ColType } from './services/bgg'
 
 // Componentes React
 import { SearchBar } from './components/SearchBar'
@@ -9,8 +11,17 @@ import { BoardGameCollection } from './components/BoardGameCollectionBGG'
 
 import { postPlay } from './services/bgg'
 
+const globalMock = false
+
 function App() {
-  const [mock, setMock] = useState(false)
+  const [mock, setMock] = useState(globalMock)
+
+  const [collection] = useCollection({
+    globalMock,
+    showExpansions: true,
+    username: 'Oborus',
+    colFilter: ColType.Owned,
+  })
 
   return (
     <main>
@@ -32,11 +43,12 @@ function App() {
         gridDisplay={true}
         ComponentCardTemplateForResult={BoardGameCard}
         mock={mock}
+        myCollection={collection}
       />
 
       <section>
         <BoardGameCollection
-          mock={mock}
+          collection={collection}
           username={'Oborus'}
         ></BoardGameCollection>
       </section>

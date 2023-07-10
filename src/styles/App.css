@@ -10,6 +10,7 @@ main {
 .search-area {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: stretch;
   border: 2px solid #111;
   border-radius: 8px;
@@ -73,6 +74,15 @@ main {
   height: 100%;
   border-radius: 5px;
   box-shadow: 0px 2px 5px black;
+}
+
+.boardgame-card.owned {
+  background-color: #00d2e6;
+  border-radius: 10px;
+  color: black;
+  background-image: url('./Oborus.svg');
+  background-size: 20%;
+  background-repeat: no-repeat;
 }
 
 .boardgame-card .name {

@@ -187,7 +187,7 @@ export function processCollectionData(data) {
     ? [data.items.item]
     : data.items.item
 
-  const mappedGames = boardGames?.map((item) => ({
+  let mappedGames = boardGames?.map((item) => ({
     id: item?._objectid,
     name: item?.name.toString(),
     thumbnailUrl: item?.thumbnail,
@@ -195,7 +195,10 @@ export function processCollectionData(data) {
     year: item?.yearpublished,
     subtype: item?._subtype,
     description: item?.description,
+    lastModified: item?.status?._lastmodified,
   }))
+
+  mappedGames.sort((a, b) => (a.lastModified < b.lastModified ? 1 : -1))
   return mappedGames
 }
 
