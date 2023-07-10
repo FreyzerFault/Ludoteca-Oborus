@@ -25,7 +25,7 @@ function App() {
         />
       </section> */}
 
-      <h1>ULTRA-BUSCADOR de JUEGOS DE MESA</h1>
+      <h1>LUDOTECA de OBORUS</h1>
 
       <SearchBar
         maxResults={24}

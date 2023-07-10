@@ -1,9 +1,10 @@
 main {
   display: flex;
   flex-direction: column;
-  justify-content: stretch;
+  justify-content: start;
   text-align: center;
   width: 100%;
+  gap: 10px;
 }
 
 .search-area {
@@ -16,6 +17,9 @@ main {
   box-shadow: 0px 5px 10px 0px #111;
   border: 2px solid dimgray;
   padding: 5px;
+  max-width: 1000px;
+  width: 90%;
+  align-self: center;
 }
 
 .search-bar {
@@ -29,6 +33,7 @@ main {
 .search-bar > input {
   flex-grow: 1;
   margin: 0px;
+  overflow: hidden;
 }
 
 .search-bar > button {
@@ -64,17 +69,20 @@ main {
   gap: 10px;
 }
 
-.boardgame-card > img {
+.boardgame-card img {
   height: 100%;
   border-radius: 5px;
+  box-shadow: 0px 2px 5px black;
 }
 
 .boardgame-card .name {
   font-weight: bold;
+  padding: 0px 10px;
 }
 
 .grid {
   display: grid;
+  gap: 2px;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
@@ -84,6 +92,7 @@ main {
   align-items: center;
   height: auto;
   gap: 10px;
+  padding: 10px 0;
 }
 
 .grid .boardgame-card .name {
