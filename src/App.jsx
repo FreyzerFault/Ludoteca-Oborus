@@ -28,7 +28,7 @@ function App() {
       <h1>ULTRA-BUSCADOR de JUEGOS DE MESA</h1>
 
       <SearchBar
-        maxResults={12}
+        maxResults={24}
         gridDisplay={true}
         ComponentCardTemplateForResult={BoardGameCard}
         mock={mock}
