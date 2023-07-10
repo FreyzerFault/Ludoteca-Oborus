@@ -8,7 +8,14 @@ export function BoardGameCard({ data }) {
 
   return (
     <div className='boardgame-card'>
-      <img src={img} alt={`${data.name} Thumbnail`} loading='lazy' />
+      <a
+        href={`https://boardgamegeek.com/boardgame/${data.id}`}
+        target='_blank'
+        rel='noreferrer'
+      >
+        <img src={img} alt={`${data.name} Thumbnail`} loading='lazy' />
+      </a>
+
       <p className='name'>{data.name}</p>
     </div>
   )
@@ -18,5 +25,6 @@ BoardGameCard.propTypes = {
   data: PropTypes.shape({
     imageUrl: PropTypes.string,
     name: PropTypes.string,
+    id: PropTypes.number,
   }).isRequired,
 }

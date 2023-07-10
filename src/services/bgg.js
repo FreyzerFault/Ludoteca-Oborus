@@ -41,8 +41,8 @@ export const ColType = {
 }
 
 // =========================== BG by IDs ===========================
-export async function getBoardGames({ gameIds = [] }) {
-  const url = `${URL_BGG_API_ITEMS}?id=${gameIds.join(',')}`
+export async function getBoardGames({ gameIds = [], maxResults = 12 }) {
+  const url = `${URL_BGG_API_ITEMS}?id=${gameIds.join(',')}&stats=1`
   return retry(
     () =>
       fetch(url)
@@ -50,7 +50,17 @@ export async function getBoardGames({ gameIds = [] }) {
         .then((data) => {
           data = xml2Json(data)
           data = validateData(data)
-          return processThingData(data)
+          data = processThingData(data)
+
+          // Los ordeno por ranking de BGG
+          data = data.sort((a, b) =>
+            parseFloat(a.votes) < parseFloat(b.votes) ? 1 : -1
+          )
+
+          // Se limitan a un máximo de resultados y se hace una peticion por IDs a la API para obtener toda la Info
+          data = data.slice(0, maxResults)
+
+          return data
         })
         .catch((e) => {
           throw e
@@ -87,10 +97,10 @@ export async function getBoardGamesSearch({
           data = xml2Json(data)
           data = validateData(data)
           data = processSearchData(data)
-
-          // Se limitan a un máximo de resultados y se hace una peticion por IDs a la API para obtener toda la Info
-          data = data.slice(0, maxResults)
-          return getBoardGames({ gameIds: data.map((game) => game.id) })
+          return getBoardGames({
+            gameIds: data.map((game) => game.id),
+            maxResults,
+          })
         })
         .catch((e) => {
           throw e
@@ -196,14 +206,34 @@ export function processSearchData(data) {
   if (data.items._total === 0) return []
 
   // Procesar los datos al formato que quiero
-  const boardGames = !Array.isArray(data.items.item)
+  let boardGames = !Array.isArray(data.items.item)
     ? [data.items.item]
     : data.items.item
 
   // Filtro juegos repetidos con nombres alternativos, solo los nombres primarios (name._type === "primary")
-  boardGames.filter((item) => item.name._type === 'primary')
+  const filteredGames = []
+  boardGames.forEach((item) => {
+    if (item.name._type !== 'primary') return
 
-  const mappedGames = boardGames?.map((item) => ({
+    // Si hay otro con el mismo ID y nombre Primary se filtra por tipo
+    const collision = filteredGames.find((other) => other._id === item._id)
+    if (!collision) filteredGames.push(item)
+    else {
+      // Se sustituye siempre que sea mas importante: BoardGame > Expansion > Accesory
+      switch (collision._type) {
+        case ItemType.BoardGame:
+          break
+        case ItemType.Accesory:
+          filteredGames.push(item)
+          break
+        case ItemType.Expansion:
+          if (item._type === ItemType.BoardGame) filteredGames.push(item)
+          break
+      }
+    }
+  })
+
+  const mappedGames = filteredGames?.map((item) => ({
     id: item?._id,
     type: item?._type,
     name: item?.name._value,
@@ -235,6 +265,7 @@ export function processThingData(data) {
       year: item?.yearpublished._value,
       subtype: item?._subtype,
       description: item?.description,
+      votes: item?.statistics?.ratings?.usersrated._value,
     }
   })
 
