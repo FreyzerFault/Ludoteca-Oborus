@@ -10,7 +10,7 @@ export function useCollection({
   const [collection, setCollection] = useState([])
   const [mock, setMock] = useState(initialMock)
 
-  const updateCollection = () => {
+  useEffect(() => {
     const getCollectionFunction = mock ? getCollectionMock : getCollection
     getCollectionFunction({
       username: username,
@@ -18,11 +18,7 @@ export function useCollection({
     })
       .then((data) => setCollection(data))
       .catch((e) => console.error(e))
-  }
+  }, [mock, showExpansions, username])
 
-  useEffect(() => {
-    updateCollection(initialMock)
-  }, [mock])
-
-  return [collection, updateCollection, mock, setMock]
+  return [collection, mock, setMock]
 }

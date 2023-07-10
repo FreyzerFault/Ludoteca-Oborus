@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 export function BoardGameCard({ data }) {
   return (
     <div className='boardgame-card'>
@@ -5,4 +6,11 @@ export function BoardGameCard({ data }) {
       <p className='name'>{data.name}</p>
     </div>
   )
+}
+
+BoardGameCard.propTypes = {
+  data: PropTypes.shape({
+    imageUrl: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
 }

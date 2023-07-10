@@ -15,6 +15,7 @@ const collectionMockData = async function () {
     })
 }
 
+// eslint-disable-next-line no-unused-vars
 const emptyMockData = async function () {
   return fetch(URL_LOCAL + 'BGGmockNoResults.xml')
     .then((res) => res.text())
@@ -24,6 +25,7 @@ const emptyMockData = async function () {
     })
 }
 
+// eslint-disable-next-line no-unused-vars
 const processingMessageMock = async function () {
   return fetch(URL_LOCAL + 'BGGmockProcessing.xml')
     .then((res) => res.text())

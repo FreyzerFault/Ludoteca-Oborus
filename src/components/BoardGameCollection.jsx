@@ -1,13 +1,11 @@
+import { PropTypes } from 'prop-types'
 import { useEffect, useState } from 'react'
 
 import { getCollectionsMock } from '../services/bgaMock'
 import { getCollections } from '../services/bga'
-import {
-  BoardGameCollectionView,
-  BoardGameCollectionViewBGA,
-} from './BoardGameCollectionView'
+import { BoardGameCollectionViewBGA } from './BoardGameCollectionView'
 
-export function BoardGameCollection({ mock, username }) {
+export function BoardGameCollection({ mock = false, username }) {
   const [collections, setCollections] = useState([])
 
   useEffect(() => {
@@ -29,7 +27,7 @@ export function BoardGameCollection({ mock, username }) {
       .catch((err) => {
         console.error(err)
       })
-  }, [mock])
+  }, [mock, username])
 
   return (
     <>
@@ -52,4 +50,9 @@ export function BoardGameCollection({ mock, username }) {
       )}
     </>
   )
+}
+
+BoardGameCollection.propTypes = {
+  mock: PropTypes.bool,
+  username: PropTypes.string.isRequired,
 }

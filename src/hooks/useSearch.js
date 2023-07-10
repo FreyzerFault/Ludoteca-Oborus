@@ -6,9 +6,8 @@ import { useState, useEffect, useRef } from 'react'
 export function useSearchAsync({
   initialSearch,
   mock,
-  queryFunction = ({ search }) => {},
-  queryFunctionMock = ({ search }) => {},
-  delay = 1000,
+  queryFunction = () => {},
+  queryFunctionMock = () => {},
 }) {
   const [searchValue, setSearchValue] = useState(initialSearch)
   const [queryData, setQueryData] = useState(null)
@@ -53,7 +52,7 @@ export function useSearchAsync({
       .finally(() => {
         setLoading(false)
       })
-  }, [searchValue, mock])
+  }, [searchValue, mock, queryFunctionMock, queryFunction])
 
   return { searchValue, setSearchValue, queryData, error, loading }
 }
@@ -79,7 +78,7 @@ export function useSearch({ initialSearch, queryFunction = () => {} }) {
       return
     }
     setQueryData(res)
-  }, [searchValue])
+  }, [queryFunction, searchValue])
 
   return { searchValue, setSearchValue, queryData, error }
 }

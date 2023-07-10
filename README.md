@@ -10,6 +10,8 @@ El objetivo es crear un buscador que recoja TODOS los juegos de BGG y permita se
 
 [API de BGG "https://api.geekdo.com/xmlapi2/"](https://api.geekdo.com/xmlapi2/)
 
+[Libreria BGG JS API](https://www.npmjs.com/package/@code-bucket/board-game-geek)
+
 ## Reenvío de Peticiones
 
 En la mayoría de las peticiones a BGG se devuelven los datos con un tiempo de espera:
@@ -84,6 +86,8 @@ TODO:
 
 ✅ Evitar que se haga la misma búsqueda dos veces seguidas.
 ✅ Muestra primero la colección Owned
+
+- Usar la [Libreria BGG JS API](https://www.npmjs.com/package/@code-bucket/board-game-geek)
 
 - Haz que la búsqueda se haga automáticamente al escribir.
 - Evita que se haga la búsqueda continuamente al escribir (debounce)

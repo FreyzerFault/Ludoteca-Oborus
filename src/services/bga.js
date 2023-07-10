@@ -169,7 +169,7 @@ export function processDataByUserCollections(data) {
 }
 
 // ================================ OAuth ====================================
-export async function authenticate({ username, password }) {
+export async function authenticate() {
   return fetch(
     `https://api.boardgameatlas.com/oauth/authorize?response_type=code&client_id=${URL_BGA_API_CLIENT_ID}&redirect_uri=http://localhost:5173/`,
     {

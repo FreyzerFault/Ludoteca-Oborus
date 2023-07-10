@@ -14,8 +14,10 @@ import { delay } from '../utils/time'
 
 const searchMock = async () => Promise.resolve(bgListMock)
 
+// eslint-disable-next-line no-unused-vars
 const emptySearchMock = async () => Promise.resolve(emptyResults)
 
+// eslint-disable-next-line no-unused-vars
 const invalidUserMock = async () => Promise.resolve(invalidAuthError)
 
 const collectionsMock = async () => Promise.resolve(oborusListsMock)

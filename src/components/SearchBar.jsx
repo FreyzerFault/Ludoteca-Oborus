@@ -1,4 +1,5 @@
 // SVG
+import PropTypes from 'prop-types'
 import { SearchIcon } from './Icons/searchIcon'
 
 // COMPONENTS
@@ -11,9 +12,10 @@ import { getBoardGamesSearchMock } from '../services/bgaMock'
 import { useSearchAsync } from '../hooks/useSearch'
 
 export function SearchBar({
-  mock,
+  mock = false,
   gridDisplay = false,
   ComponentCardTemplateForResult,
+  searchAsTyping = false, // Buscar mientras se escribe
 }) {
   // Custom HOOKS
   const { searchValue, setSearchValue, queryData, error, loading } =
@@ -42,6 +44,8 @@ export function SearchBar({
 
   // Cambio en el input de Busqueda => Actualiza el estado asociado
   const handleSearchInputChange = (event) => {
+    if (!searchAsTyping) return
+
     // Se puede controlar que pone el usuario no dejandole asi:
     if (event.target.value.startsWith(' ')) return
 
@@ -55,11 +59,8 @@ export function SearchBar({
         <form onSubmit={handleSubmit}>
           <div className='search-bar'>
             <input
-              // ref={inputRef} // (para consultarlo en cualquier momento)
-
-              // ============= DESCOMENTA ESTO PARA ACTUALIZAR A TIEMPO REAL ==================
-              // value={searchValue}
-              // onChange={handleSearchInputChange}
+              value={searchValue}
+              onChange={handleSearchInputChange}
               name='search'
               type='text'
               placeholder='Catan, Virus, Monopoly, ...'
@@ -100,4 +101,11 @@ export function SearchBar({
       </section>
     </>
   )
+}
+
+SearchBar.propTypes = {
+  ComponentCardTemplateForResult: PropTypes.elementType.isRequired,
+  gridDisplay: PropTypes.bool,
+  mock: PropTypes.bool,
+  searchAsTyping: PropTypes.bool,
 }

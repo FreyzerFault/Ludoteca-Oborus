@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { xml2Json } from '../utils/xml2json'
 
 import { retry, RetryError } from '../utils/retry'
@@ -114,7 +115,7 @@ function loginBGG({ username, password }) {
   }).then((res) => {
     // setup session cookie
     // "bggusername=Freyzer; bggpassword=Freyzer0.; SessionID=SESSIONID;"
-    let sessionCoockie = ''
+    let sessionCookie = ''
 
     console.log(res)
 
@@ -146,7 +147,7 @@ function loginBGG({ username, password }) {
         continue
       }
     }
-    return sessionCoockie
+    return sessionCookie
   })
 }
 
