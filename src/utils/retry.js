@@ -17,7 +17,7 @@ export async function retry(
   // Antes de reintentarlo espera un cooldown
   if (tryCount > 0) {
     console.log('Retrying...', tryCount)
-    await delay(cooldownInSeconds)
+    await delay(cooldownInSeconds * 1000)
   }
 
   tryCount++

@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
+
 // Muestra una lista de elementos
 // REQUISITOS
 // Cada elemento DEBE tener una propiedad [id]!!!!
 // El Component debe tener un argumento [data]
-import PropTypes from 'prop-types'
 export function DataList({ data = [], ComponentTemplate }) {
   if (data === null) return
 
@@ -10,9 +11,11 @@ export function DataList({ data = [], ComponentTemplate }) {
     data.map((child) => {
       return <ComponentTemplate key={child.id} data={child} />
     })
-  ) : (
+  ) : Array.isArray(data) && data.length === 0 ? (
     // Cuando la lista esté vacía
     <p>No hay resultados...</p>
+  ) : (
+    <></>
   )
 }
 

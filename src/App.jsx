@@ -5,17 +5,17 @@ import { useState } from 'react'
 // Componentes React
 import { SearchBar } from './components/SearchBar'
 import { BoardGameCard } from './components/BoardGameCard'
-import { BoardGameCollection } from './components/BoardGameCollection'
+import { BoardGameCollection } from './components/BoardGameCollectionBGG'
 
 import { postPlay } from './services/bgg'
 
 function App() {
-  const [mock, setMock] = useState(true)
+  const [mock, setMock] = useState(false)
 
   return (
     <main>
       {/* // Activa los Datos de Prueba, esconder en prod */}
-      <section onClick={() => setMock(!mock)} className='mock-activator'>
+      {/* <section onClick={() => setMock(!mock)} className='mock-activator'>
         <span>Datos de prueba</span>
         <input
           type='checkbox'
@@ -23,11 +23,12 @@ function App() {
           value={mock}
           onChange={(e) => setMock(e.target.checked)}
         />
-      </section>
+      </section> */}
 
       <h1>ULTRA-BUSCADOR de JUEGOS DE MESA</h1>
 
       <SearchBar
+        maxResults={12}
         gridDisplay={true}
         ComponentCardTemplateForResult={BoardGameCard}
         mock={mock}

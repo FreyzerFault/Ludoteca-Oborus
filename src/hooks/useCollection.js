@@ -1,24 +1,25 @@
 import { useState, useEffect } from 'react'
-import { getCollection } from '../services/bgg'
+import { getCollection, ColType, ItemType } from '../services/bgg'
 import { getCollectionMock } from '../services/bggMock'
 
 export function useCollection({
-  showExpansions = true,
   username = 'oborus',
-  initialMock = true,
+  showExpansions = true,
+  mock = false,
+  colFilter = ColType.Owned,
 }) {
   const [collection, setCollection] = useState([])
-  const [mock, setMock] = useState(initialMock)
 
   useEffect(() => {
     const getCollectionFunction = mock ? getCollectionMock : getCollection
     getCollectionFunction({
       username: username,
-      excludeSubtype: showExpansions ? '' : 'boardgameexpansion',
+      excludeSubtype: showExpansions ? '' : ItemType.Expansion,
+      colFilter,
     })
       .then((data) => setCollection(data))
       .catch((e) => console.error(e))
-  }, [mock, showExpansions, username])
+  }, [username, mock, showExpansions, colFilter])
 
-  return [collection, mock, setMock]
+  return [collection]
 }

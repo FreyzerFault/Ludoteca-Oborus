@@ -2,37 +2,125 @@
 import { xml2Json } from '../utils/xml2json'
 
 import { retry, RetryError } from '../utils/retry'
+import { processDataByBoardGameList } from './bga'
 
 // URL raiz de la API
 const URL_BGG_API = 'https://api.geekdo.com/xmlapi2/'
+const URL_BGG_API_ITEMS = 'https://api.geekdo.com/xmlapi2/thing'
+const URL_BGG_API_SEARCH = 'https://api.geekdo.com/xmlapi2/search'
 const URL_BGG_API_USERS = 'https://api.geekdo.com/xmlapi2/user'
 const URL_BGG_API_COLLECTIONS = 'https://api.geekdo.com/xmlapi2/collection'
 const URL_BGG_API_PLAYS = 'https://api.geekdo.com/xmlapi2/plays'
 
+// Nombre de Usuario
 const OBORUS_USERNAME = 'oborus'
 
-function buildCollectionURL({
-  username = OBORUS_USERNAME,
-  subtype = 'boardgame',
-  excludeSubtype = 'boardgameexpansion',
-}) {
-  return (
-    URL_BGG_API_COLLECTIONS +
-    '?username=' +
-    username +
-    '&subtype=' +
-    subtype +
-    '&excludesubtype=' +
-    excludeSubtype
+// Tipos de Items
+export const ItemType = {
+  BoardGame: 'boardgame',
+  Expansion: 'boardgameexpansion',
+  Accesory: 'boardgameaccessory',
+}
+
+// Tipos de Colecciones standard que ofrece BGG donde guardar los juegos
+export const ColType = {
+  NoType: '',
+  Owned: 'own',
+  PrevOwned: 'prevowned',
+  WishList: 'wishlist',
+  PreOrdered: 'preordered',
+  Played: 'played',
+  Rated: 'rated',
+  Commented: 'comment',
+  Want: 'want',
+  Trade: 'trade',
+  WantToPlay: 'wanttoplay',
+  WantToBuy: 'wanttobuy',
+  HasParts: 'hasparts',
+  WantParts: 'wantparts',
+}
+
+// =========================== BG by IDs ===========================
+export async function getBoardGames({ gameIds = [] }) {
+  const url = `${URL_BGG_API_ITEMS}?id=${gameIds.join(',')}`
+  return retry(
+    () =>
+      fetch(url)
+        .then((data) => data.text())
+        .then((data) => {
+          data = xml2Json(data)
+          data = validateData(data)
+          return processThingData(data)
+        })
+        .catch((e) => {
+          throw e
+        }),
+    { tryCount: 0, maxTries: 3, cooldownInSeconds: 1 }
   )
 }
 
-export async function fetchCollection({
-  username = OBORUS_USERNAME,
-  subtype = 'boardgame',
-  excludeSubtype = 'boardgameexpansion',
+// Devuelve las imagenes de los juegos pasados por ID
+export async function getImagesUrl({ gameIds = [] }) {
+  return getBoardGames({ gameIds }).then((data) =>
+    data.map((game) => game.imageUrl)
+  )
+}
+
+// =========================== SEARCH ===========================
+export async function getBoardGamesSearch({
+  search,
+  maxResults = 12,
+  includeExpansions = true,
+  includeAccesories = true,
 }) {
-  return fetch(buildCollectionURL({ username, subtype, excludeSubtype }))
+  if (!search || search.length === 0) return null
+
+  const types = [ItemType.BoardGame]
+  if (includeExpansions) types.push(ItemType.Expansion)
+  if (includeAccesories) types.push(ItemType.Accesory)
+
+  return retry(
+    () =>
+      fetch(`${URL_BGG_API_SEARCH}?query=${search}&type=${types.join(',')}`)
+        .then((data) => data.text())
+        .then((data) => {
+          data = xml2Json(data)
+          data = validateData(data)
+          data = processSearchData(data)
+
+          // Se limitan a un máximo de resultados y se hace una peticion por IDs a la API para obtener toda la Info
+          data = data.slice(0, maxResults)
+          return getBoardGames({ gameIds: data.map((game) => game.id) })
+        })
+        .catch((e) => {
+          throw e
+        }),
+    { tryCount: 0, maxTries: 3, cooldownInSeconds: 1 }
+  )
+}
+
+// =========================== COLLECTIONS ===========================
+function buildCollectionURL({
+  username = OBORUS_USERNAME,
+  subtype = ItemType.BoardGame,
+  excludeSubtype = ItemType.Expansion,
+  colFilter = ColType.Owned,
+}) {
+  const URL =
+    `${URL_BGG_API_COLLECTIONS}?username=${username}&subtype=${subtype}&excludesubtype=${excludeSubtype}` +
+    (colFilter === ColType.NoType ? '' : `&${colFilter}=1`)
+  return URL
+}
+
+async function fetchCollection({
+  username = OBORUS_USERNAME,
+  subtype = ItemType.BoardGame,
+  excludeSubtype = ItemType.Expansion,
+  colFilter = ColType.Owned,
+}) {
+  return fetch(
+    buildCollectionURL({ username, subtype, excludeSubtype, colFilter })
+  )
     .then((res) => res.text())
     .then((xml) => xml2Json(xml))
     .catch((err) => {
@@ -42,21 +130,26 @@ export async function fetchCollection({
 
 export async function getCollection({
   username = OBORUS_USERNAME,
-  subtype = 'boardgame',
-  excludeSubtype = 'boardgameexpansion',
+  subtype = ItemType.BoardGame,
+  excludeSubtype = ItemType.Expansion,
+  colFilter = ColType.Owned, // Puede ser owned, prevowned, wishlist... (Mirar parametros de la API)
 }) {
   if (!username || username.length === 0) return null
   // Delay simulado
   return retry(
     () =>
-      fetchCollection({ username, subtype, excludeSubtype })
+      fetchCollection({ username, subtype, excludeSubtype, colFilter })
         .then((data) => {
           return validateData(data)
         })
         .then((data) => {
-          return processData(data)
+          return processCollectionData(data)
+        })
+        .catch((err) => {
+          console.error(err)
+          throw err
         }),
-    { tryCount: 0, maxTries: 3, cooldownInSeconds: 1000 }
+    { tryCount: 0, maxTries: 3, cooldownInSeconds: 1 }
   )
 }
 
@@ -73,7 +166,7 @@ export function validateData(data) {
   return data
 }
 
-export function processData(data) {
+export function processCollectionData(data) {
   if ('message' in data) throw new RetryError()
 
   // No hay resultados:
@@ -85,13 +178,66 @@ export function processData(data) {
     : data.items.item
 
   const mappedGames = boardGames?.map((item) => ({
-    id: item._objectid,
-    name: item.name.toString(),
-    thumbnailUrl: item.thumbnail,
-    imageUrl: item.image,
-    year: item.yearpublished,
-    subtype: item._subtype,
+    id: item?._objectid,
+    name: item?.name.toString(),
+    thumbnailUrl: item?.thumbnail,
+    imageUrl: item?.image,
+    year: item?.yearpublished,
+    subtype: item?._subtype,
+    description: item?.description,
   }))
+  return mappedGames
+}
+
+export function processSearchData(data) {
+  if ('message' in data) throw new RetryError()
+
+  // No hay resultados:
+  if (data.items._total === 0) return []
+
+  // Procesar los datos al formato que quiero
+  const boardGames = !Array.isArray(data.items.item)
+    ? [data.items.item]
+    : data.items.item
+
+  // Filtro juegos repetidos con nombres alternativos, solo los nombres primarios (name._type === "primary")
+  boardGames.filter((item) => item.name._type === 'primary')
+
+  const mappedGames = boardGames?.map((item) => ({
+    id: item?._id,
+    type: item?._type,
+    name: item?.name._value,
+    year: item?.yearpublished?._value,
+  }))
+
+  return mappedGames
+}
+
+export function processThingData(data) {
+  if ('message' in data) throw new RetryError()
+
+  // No hay resultados:
+  if (!data?.items?.item) return []
+  console.log(data)
+
+  // Hay solo 1
+  data = !Array.isArray(data.items.item) ? [data.items.item] : data.items.item
+
+  const mappedGames = data?.map((item) => {
+    return {
+      id: item?._id,
+      type: item?._type,
+      name: Array.isArray(item?.name)
+        ? item?.name[0]._value
+        : item?.name._value,
+      thumbnailUrl: item?.thumbnail,
+      imageUrl: item?.image,
+      year: item?.yearpublished._value,
+      subtype: item?._subtype,
+      description: item?.description,
+    }
+  })
+
   return mappedGames
 }
 

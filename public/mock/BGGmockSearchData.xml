@@ -1,0 +1,18 @@
+<items total="326" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse">
+    <item type="boardgame" id="134277">
+        <name type="alternate" value="The 7 Wonders of Catan (fan expansion for Catan)"/>
+        <yearpublished value="2012"/>
+    </item>
+    <item type="boardgame" id="110308">
+        <name type="primary" value="7 Wonders: Catan"/>
+        <yearpublished value="2011"/>
+    </item>
+    <item type="boardgame" id="123386">
+        <name type="primary" value="Baden-Württemberg Catan"/>
+        <yearpublished value="2012"/>
+    </item>
+    <item type="boardgame" id="13">
+        <name type="primary" value="CATAN"/>
+        <yearpublished value="1995"/>
+    </item>
+</items>

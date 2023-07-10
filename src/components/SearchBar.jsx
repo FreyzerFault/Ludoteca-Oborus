@@ -7,24 +7,25 @@ import { DataList } from './DataList'
 import Spinner from 'react-spinners/RingLoader'
 
 // HOOKS
-import { getBoardGamesSearch } from '../services/bga'
-import { getBoardGamesSearchMock } from '../services/bgaMock'
+import { getBoardGamesSearch } from '../services/bgg'
+import { getBoardGamesSearchMock } from '../services/bggMock'
 import { useSearchAsync } from '../hooks/useSearch'
 
 export function SearchBar({
+  maxResults = 12,
+  ComponentCardTemplateForResult,
   mock = false,
   gridDisplay = false,
-  ComponentCardTemplateForResult,
   searchAsTyping = false, // Buscar mientras se escribe
 }) {
   // Custom HOOKS
   const { searchValue, setSearchValue, queryData, error, loading } =
     useSearchAsync({
       initialSearch: '',
-      delay: 1000,
-      mock,
+      maxResults,
       queryFunction: getBoardGamesSearch,
       queryFunctionMock: getBoardGamesSearchMock,
+      mock,
     })
 
   // REFs (Variables que no se resetean en cada render, persisten)
@@ -59,7 +60,7 @@ export function SearchBar({
         <form onSubmit={handleSubmit}>
           <div className='search-bar'>
             <input
-              value={searchValue}
+              value={searchAsTyping ? searchValue : undefined}
               onChange={handleSearchInputChange}
               name='search'
               type='text'
@@ -108,4 +109,5 @@ SearchBar.propTypes = {
   gridDisplay: PropTypes.bool,
   mock: PropTypes.bool,
   searchAsTyping: PropTypes.bool,
+  maxResults: PropTypes.number,
 }

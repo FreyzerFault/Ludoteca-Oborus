@@ -5,9 +5,10 @@ import { useState, useEffect, useRef } from 'react'
 
 export function useSearchAsync({
   initialSearch,
-  mock,
+  maxResults = 10,
   queryFunction = () => {},
   queryFunctionMock = () => {},
+  mock,
 }) {
   const [searchValue, setSearchValue] = useState(initialSearch)
   const [queryData, setQueryData] = useState(null)
@@ -35,11 +36,10 @@ export function useSearchAsync({
 
     setLoading(true)
 
-    console.log('MOCK: ', mock)
     // Se elige una funcion u otra dependiendo de si se usan datos falsos o no
     const promiseQuery = mock
-      ? queryFunctionMock({ search: searchValue })
-      : queryFunction({ search: searchValue })
+      ? queryFunctionMock({ search: searchValue, maxResults })
+      : queryFunction({ search: searchValue, maxResults })
 
     promiseQuery
       .then((data) => {
@@ -47,12 +47,13 @@ export function useSearchAsync({
       })
       .catch((e) => {
         setError(e)
+        console.error(e)
         setQueryData(null)
       })
       .finally(() => {
         setLoading(false)
       })
-  }, [searchValue, mock, queryFunctionMock, queryFunction])
+  }, [searchValue, mock, queryFunctionMock, queryFunction, maxResults])
 
   return { searchValue, setSearchValue, queryData, error, loading }
 }
