@@ -1,7 +1,7 @@
 // SVG
 import PropTypes from 'prop-types'
-import { SearchIcon } from './Icons/SearchIcon'
-import { LoadingSpinner } from './Icons/LoadingSpinner'
+import { SearchIcon } from './icons/SearchIcon'
+import { LoadingSpinner } from './icons/LoadingSpinner'
 
 // COMPONENTS
 import { DataList } from './DataList'

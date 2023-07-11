@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import { OborusLogo } from './Icons/OborusLogo'
+import { OborusLogo } from './icons/OborusLogo'
 
 import { IMG_NOT_FOUND_URL } from '../services/localData'
 
