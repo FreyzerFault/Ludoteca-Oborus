@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 
+import { OborusLogo } from './Icons/OborusLogo'
+
 import { IMG_NOT_FOUND_URL } from '../services/localData'
 
 export function BoardGameCard({ data }) {
@@ -7,16 +9,24 @@ export function BoardGameCard({ data }) {
   if (!img) img = IMG_NOT_FOUND_URL
 
   return (
-    <div className={`boardgame-card ${data.owned ? 'owned' : ''}`}>
+    <div className={`boardgame-card`}>
       <a
+        className='clickable'
         href={`https://boardgamegeek.com/boardgame/${data.id}`}
         target='_blank'
         rel='noreferrer'
       >
-        <img src={img} alt={`${data.name} Thumbnail`} loading='lazy' />
-      </a>
+        {data.owned && <OborusLogo />}
 
-      <p className='name'>{data.name}</p>
+        <img
+          className='thumbnail'
+          src={img}
+          alt={`${data.name} Thumbnail`}
+          loading='lazy'
+        />
+
+        <p className='name'>{data.name}</p>
+      </a>
     </div>
   )
 }

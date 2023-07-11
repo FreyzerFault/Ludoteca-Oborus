@@ -36,11 +36,10 @@ function App() {
         />
       </section> */}
 
-      <h1>LUDOTECA de OBORUS</h1>
+      <h1>LUDOTECA OBORUS</h1>
 
       <SearchBar
         maxResults={24}
-        gridDisplay={true}
         ComponentCardTemplateForResult={BoardGameCard}
         mock={mock}
         myCollection={collection}

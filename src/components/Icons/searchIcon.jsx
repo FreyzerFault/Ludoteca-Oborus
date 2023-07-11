@@ -1,4 +1,4 @@
-const SvgComponent = (props) => (
+export const SearchIcon = (props) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     fill='none'
@@ -15,4 +15,3 @@ const SvgComponent = (props) => (
     />
   </svg>
 )
-export { SvgComponent as SearchIcon }

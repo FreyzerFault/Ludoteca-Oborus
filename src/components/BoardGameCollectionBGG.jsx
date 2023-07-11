@@ -11,9 +11,11 @@ export function BoardGameCollection({ username = 'oborus', collection = [] }) {
           {collection.length} Juegos de {username}
         </h1>
       </section>
-      <section className='grid search-results'>
-        <DataList ComponentTemplate={BoardGameCard} data={collection} />
-      </section>
+      <DataList
+        className='search-results'
+        ComponentTemplate={BoardGameCard}
+        data={collection}
+      />
     </>
   )
 }

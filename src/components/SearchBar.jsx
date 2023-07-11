@@ -1,10 +1,10 @@
 // SVG
 import PropTypes from 'prop-types'
-import { SearchIcon } from './Icons/searchIcon'
+import { SearchIcon } from './Icons/SearchIcon'
+import { LoadingSpinner } from './Icons/LoadingSpinner'
 
 // COMPONENTS
 import { DataList } from './DataList'
-import Spinner from 'react-spinners/RingLoader'
 
 // HOOKS
 import { getBoardGamesSearch } from '../services/bgg'
@@ -15,7 +15,6 @@ export function SearchBar({
   maxResults = 12,
   ComponentCardTemplateForResult,
   mock = false,
-  gridDisplay = false,
   searchAsTyping = false, // Buscar mientras se escribe
   myCollection = [],
 }) {
@@ -76,31 +75,23 @@ export function SearchBar({
         </form>
 
         {/* Resultados de la búsqueda */}
-        <section className={`search-results ${gridDisplay ? 'grid' : ''}`}>
-          <DataList
-            data={queryData}
-            ComponentTemplate={ComponentCardTemplateForResult}
-          />
+        <DataList
+          className={'search-results'}
+          data={queryData}
+          ComponentTemplate={ComponentCardTemplateForResult}
+        />
 
-          {error && (
-            <section className='error'>
-              <span>⚠ ⚠ ⚠</span>
-              <span className='text'>{error.message}</span>
-              <span>⚠ ⚠ ⚠</span>
-            </section>
-          )}
-        </section>
+        {error && (
+          <section className='error'>
+            <span>⚠ ⚠ ⚠</span>
+            <span className='text'>{error.message}</span>
+            <span>⚠ ⚠ ⚠</span>
+          </section>
+        )}
       </section>
 
       <section className='spinner-container'>
-        <Spinner
-          className='spinner'
-          color='orange'
-          loading={loading}
-          size={200}
-          aria-label='Loading Spinner'
-          data-testid='loader'
-        />
+        <LoadingSpinner loading={loading} />
       </section>
     </>
   )
