@@ -5,7 +5,7 @@ import { OborusLogo } from './icons/OborusLogo'
 import { IMG_NOT_FOUND_URL } from '../services/localData'
 
 export function BoardGameCard({ data }) {
-  let img = data?.imageUrl
+  let img = data?.thumbnailUrl
   if (!img) img = IMG_NOT_FOUND_URL
 
   return (
@@ -34,6 +34,7 @@ export function BoardGameCard({ data }) {
 BoardGameCard.propTypes = {
   data: PropTypes.shape({
     imageUrl: PropTypes.string,
+    thumbnailUrl: PropTypes.string,
     name: PropTypes.string,
     id: PropTypes.oneOf(PropTypes.number, PropTypes.string),
     owned: PropTypes.bool,
