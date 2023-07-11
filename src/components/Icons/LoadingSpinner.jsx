@@ -1,6 +1,7 @@
 import Spinner from 'react-spinners/RingLoader'
+import { PropTypes } from 'prop-types'
 
-export const LoadingSpinner = ({ loading }) => {
+export function LoadingSpinner({ loading = true }) {
   return (
     <Spinner
       className='spinner'
@@ -11,4 +12,8 @@ export const LoadingSpinner = ({ loading }) => {
       data-testid='loader'
     />
   )
+}
+
+LoadingSpinner.propTypes = {
+  loading: PropTypes.bool,
 }
