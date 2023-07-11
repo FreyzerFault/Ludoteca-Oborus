@@ -1,50 +1,47 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+
+// SERVICES
+import { GetBoardGames, GetBoardGamesMock } from '../services/bgg/bggThing'
+import { Search, SearchMock } from '../services/bgg/bggSearch'
+import { SortGamesByVotes } from '../services/bgg/bgg'
 
 // Gestiona la busqueda de un termino
 // Pasale la funcion que busca para que actualice los resultados
 
-export function useSearchAsync({
-  initialSearch,
-  maxResults = 10,
-  queryFunction = () => {},
-  queryFunctionMock = () => {},
-  mock,
-  myCollection = [],
-}) {
-  const [searchValue, setSearchValue] = useState(initialSearch)
+export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
   const [queryData, setQueryData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
-
-  const lastSearch = useRef(initialSearch)
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     setError(null)
+    setQueryData(null)
 
-    if (!searchValue || searchValue.length === 0) {
-      setQueryData(null)
-      return
-    }
-
-    // Evitar buscar el mismo termino mas veces
-    {
-      if (!mock && searchValue === lastSearch.current) {
-        return
-      }
-
-      lastSearch.current = searchValue
-    }
+    if (!search || search.length === 0) return
 
     setLoading(true)
 
     // Se elige una funcion u otra dependiendo de si se usan datos falsos o no
-    const promiseQuery = mock
-      ? queryFunctionMock({ search: searchValue, maxResults })
-      : queryFunction({ search: searchValue, maxResults })
+    const searchQueryFunc = mock ? SearchMock : Search
+    const getBoardGamesFunc = mock ? GetBoardGamesMock : GetBoardGames
 
-    promiseQuery
+    searchQueryFunc({ search })
       .then((data) => {
-        setQueryData(addOwnedTag(data, myCollection))
+        // Se obtienen los juegos buscando por las IDs recibidas
+        return getBoardGamesFunc({ gameIds: data.map((item) => item.id) })
+      })
+      .then((data) => {
+        // Los ordeno por votos
+        data = SortGamesByVotes(data)
+
+        // Se acota al max de resultados
+        data = data.slice(0, maxResults)
+
+        // Se añade la priopiedad owned si esta dentro de la coleccion dada
+        data = addOwnedTag(data, myCollection)
+
+        setQueryData(data)
       })
       .catch((e) => {
         setError(e)
@@ -54,22 +51,14 @@ export function useSearchAsync({
       .finally(() => {
         setLoading(false)
       })
-  }, [
-    searchValue,
-    mock,
-    queryFunctionMock,
-    queryFunction,
-    maxResults,
-    myCollection,
-  ])
+  }, [mock, maxResults, myCollection, search])
 
-  return { searchValue, setSearchValue, queryData, error, loading }
+  return { setSearch, queryData, error, loading }
 }
 
 function addOwnedTag(data, ownedCollection) {
   if (ownedCollection.length > 0) {
     return data.map((item) => {
-      console.log(ownedCollection.some((colItem) => colItem.id === item.id))
       return (item = {
         ...item,
         // Se añade la propiedad owned a cada item que este dentro de mi coleccion
@@ -77,30 +66,4 @@ function addOwnedTag(data, ownedCollection) {
       })
     })
   }
-}
-
-export function useSearch({ initialSearch, queryFunction = () => {} }) {
-  const [searchValue, setSearchValue] = useState(initialSearch)
-  const [queryData, setQueryData] = useState(null)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    setError(null)
-    setQueryData(null)
-
-    if (!searchValue || searchValue.length === 0) {
-      return
-    }
-
-    let res
-    try {
-      res = queryFunction(searchValue)
-    } catch (e) {
-      setError(e)
-      return
-    }
-    setQueryData(res)
-  }, [queryFunction, searchValue])
-
-  return { searchValue, setSearchValue, queryData, error }
 }

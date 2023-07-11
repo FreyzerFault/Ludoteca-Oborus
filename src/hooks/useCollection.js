@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { getCollection, ColType, ItemType } from '../services/bgg'
-import { getCollectionMock } from '../services/bggMock'
+import { GetCollection } from '../services/bgg/bggCollection'
+import { ColType, ItemType } from '../services/bgg/bgg'
+import { GetCollectionMock } from '../services/bgg/bggCollection'
 
 export function useCollection({
   username = 'oborus',
@@ -11,7 +12,7 @@ export function useCollection({
   const [collection, setCollection] = useState([])
 
   useEffect(() => {
-    const getCollectionFunction = mock ? getCollectionMock : getCollection
+    const getCollectionFunction = mock ? GetCollectionMock : GetCollection
     getCollectionFunction({
       username: username,
       excludeSubtype: showExpansions ? '' : ItemType.Expansion,

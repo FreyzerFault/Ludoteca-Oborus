@@ -1,78 +1,34 @@
-// SVG
 import PropTypes from 'prop-types'
-import { SearchIcon } from './icons/SearchIcon'
+
+// Icons
+import { SearchInput } from './SearchInput'
 import { LoadingSpinner } from './icons/LoadingSpinner'
 
 // COMPONENTS
 import { DataList } from './DataList'
+import { ErrorMessage } from './ErrorMessage'
 
 // HOOKS
-import { getBoardGamesSearch } from '../services/bgg'
-import { getBoardGamesSearchMock } from '../services/bggMock'
-import { useSearchAsync } from '../hooks/useSearch'
+import { useSearch } from '../hooks/useSearch'
 
 export function SearchBar({
-  maxResults = 12,
   ComponentCardTemplateForResult,
+  maxResults = 24,
   mock = false,
-  searchAsTyping = false, // Buscar mientras se escribe
   myCollection = [],
 }) {
   // Custom HOOKS
-  const { searchValue, setSearchValue, queryData, error, loading } =
-    useSearchAsync({
-      initialSearch: '',
-      maxResults,
-      queryFunction: getBoardGamesSearch,
-      queryFunctionMock: getBoardGamesSearchMock,
-      mock,
-      myCollection,
-    })
-
-  // REFs (Variables que no se resetean en cada render, persisten)
-  // const inputRef = useRef()
-
-  // Submit del Formulario
-  const handleSubmit = (event) => {
-    // Previene la actualizacion de la pagina
-    event.preventDefault()
-    // const formFields = Object.fromEntries(new window.FormData(event.target))
-    // const searchTerm = formFields.search
-
-    const searchInputValue = event.target.search.value
-
-    setSearchValue(searchInputValue)
-  }
-
-  // Cambio en el input de Busqueda => Actualiza el estado asociado
-  const handleSearchInputChange = (event) => {
-    if (!searchAsTyping) return
-
-    // Se puede controlar que pone el usuario no dejandole asi:
-    if (event.target.value.startsWith(' ')) return
-
-    setSearchValue(event.target.value)
-  }
+  const { setSearch, queryData, error, loading } = useSearch({
+    maxResults,
+    mock,
+    myCollection,
+  })
 
   // COMPONENTE
   return (
     <>
       <section className='search-area'>
-        <form onSubmit={handleSubmit}>
-          <div className='search-bar'>
-            <input
-              value={searchAsTyping ? searchValue : undefined}
-              onChange={handleSearchInputChange}
-              name='search'
-              type='text'
-              placeholder='Catan, Virus, Monopoly, ...'
-            />
-
-            <button type='submit'>
-              <SearchIcon className='search-icon' />
-            </button>
-          </div>
-        </form>
+        <SearchInput onSearch={setSearch} />
 
         {/* Resultados de la búsqueda */}
         <DataList
@@ -81,13 +37,7 @@ export function SearchBar({
           ComponentTemplate={ComponentCardTemplateForResult}
         />
 
-        {error && (
-          <section className='error'>
-            <span>⚠ ⚠ ⚠</span>
-            <span className='text'>{error.message}</span>
-            <span>⚠ ⚠ ⚠</span>
-          </section>
-        )}
+        <ErrorMessage error={error} />
       </section>
 
       <section className='spinner-container'>
@@ -99,9 +49,7 @@ export function SearchBar({
 
 SearchBar.propTypes = {
   ComponentCardTemplateForResult: PropTypes.elementType.isRequired,
-  gridDisplay: PropTypes.bool,
-  mock: PropTypes.bool,
-  searchAsTyping: PropTypes.bool,
   maxResults: PropTypes.number,
+  mock: PropTypes.bool,
   myCollection: PropTypes.array,
 }

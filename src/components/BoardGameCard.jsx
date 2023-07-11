@@ -36,7 +36,7 @@ BoardGameCard.propTypes = {
     imageUrl: PropTypes.string,
     thumbnailUrl: PropTypes.string,
     name: PropTypes.string,
-    id: PropTypes.oneOf(PropTypes.number, PropTypes.string),
+    id: PropTypes.any,
     owned: PropTypes.bool,
   }).isRequired,
 }

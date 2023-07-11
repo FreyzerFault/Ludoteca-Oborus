@@ -2,14 +2,12 @@ import './styles/App.css'
 
 import { useState } from 'react'
 import { useCollection } from './hooks/useCollection'
-import { ColType } from './services/bgg'
+import { ColType, postPlay } from './services/bgg/bgg'
 
 // Componentes React
 import { SearchBar } from './components/SearchBar'
 import { BoardGameCard } from './components/BoardGameCard'
 import { BoardGameCollection } from './components/BoardGameCollectionBGG'
-
-import { postPlay } from './services/bgg'
 
 const globalMock = false
 

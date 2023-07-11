@@ -26,4 +26,5 @@ export function DataList({ data = [], ComponentTemplate, className = '' }) {
 DataList.propTypes = {
   ComponentTemplate: PropTypes.elementType.isRequired,
   data: PropTypes.array,
+  className: PropTypes.string,
 }
