@@ -40,11 +40,11 @@ export function SortGamesBy({ games, sortBy }) {
 }
 
 export function SortGamesByVotes(games) {
-  return games.sort((a, b) => (parseInt(a.votes) < parseInt(b.votes) ? 1 : -1))
+  return games.sort((a, b) => (a.votes < b.votes ? 1 : -1))
 }
 
 export function SortGamesById(games) {
-  return games.sort((a, b) => (parseInt(a.id) < parseInt(b.id) ? 1 : -1))
+  return games.sort((a, b) => (a.id < b.id ? 1 : -1))
 }
 
 export function SortGamesByName(games) {
@@ -52,7 +52,10 @@ export function SortGamesByName(games) {
 }
 
 export function SortGamesByDateAdded(games) {
-  return games.sort((a, b) => (a.lastModified < b.lastModified ? 1 : -1))
+  return games.sort((a, b) => {
+    //console.log(Date.parse(a.lastModified) - Date.parse(b.lastModified))
+    return Date.parse(b.lastModified) - Date.parse(a.lastModified)
+  })
 }
 
 export async function parseBggData(data) {

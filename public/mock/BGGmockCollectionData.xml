@@ -1,27 +1,50 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><items totalitems="287" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse" pubdate="Mon, 12 Jun 2023 15:54:53 +0000">
-		<item objecttype="thing" objectid="63706" subtype="boardgame" collid="98908519">
-	<name sortindex="1">11 nimmt!</name>
-		<yearpublished>2010</yearpublished>			<image>https://cf.geekdo-images.com/OgaW40VSlThd-z7u7NWE3A__original/img/1seIZCZj_SlY9LH4pbV8gOieQ5o=/0x0/filters:format(jpeg)/pic648725.jpg</image>
+<items totalitems="6" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse" pubdate="Mon, 10 Jul 2023 22:31:20 +0000">
+	<item objecttype="thing" objectid="63706" subtype="boardgame" collid="98908519">
+		<name sortindex="1">11 nimmt!</name>
+		<yearpublished>2010</yearpublished>
+		<image>https://cf.geekdo-images.com/OgaW40VSlThd-z7u7NWE3A__original/img/1seIZCZj_SlY9LH4pbV8gOieQ5o=/0x0/filters:format(jpeg)/pic648725.jpg</image>
 		<thumbnail>https://cf.geekdo-images.com/OgaW40VSlThd-z7u7NWE3A__thumb/img/gzFC28W99Qv8aiTTlfP47ze02AQ=/fit-in/200x150/filters:strip_icc()/pic648725.jpg</thumbnail>
-			<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2022-10-19 05:41:02" />
-	<numplays>0</numplays>							</item>
-		<item objecttype="thing" objectid="432" subtype="boardgame" collid="98908524">
-	<name sortindex="1">6 nimmt!</name>
-		<yearpublished>1994</yearpublished>			<image>https://cf.geekdo-images.com/JFhLVSRFQ2mtWRNHgbZ3Wg__original/img/9fIiXGmstIfL7rLvn9pNXM1Bw6Q=/0x0/filters:format(jpeg)/pic2602138.jpg</image>
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2022-10-19 05:41:02"/>
+		<numplays>0</numplays>
+	</item>
+	<item objecttype="thing" objectid="432" subtype="boardgame" collid="98908524">
+		<name sortindex="1">6 nimmt!</name>
+		<yearpublished>1994</yearpublished>
+		<image>https://cf.geekdo-images.com/JFhLVSRFQ2mtWRNHgbZ3Wg__original/img/9fIiXGmstIfL7rLvn9pNXM1Bw6Q=/0x0/filters:format(jpeg)/pic2602138.jpg</image>
 		<thumbnail>https://cf.geekdo-images.com/JFhLVSRFQ2mtWRNHgbZ3Wg__thumb/img/jqJgikalfbCRPAMpjq4bWH0sj08=/fit-in/200x150/filters:strip_icc()/pic2602138.jpg</thumbnail>
-			<status own="0" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2022-10-19 05:41:09" />
-	<numplays>0</numplays>							</item>
-		<item objecttype="thing" objectid="68448" subtype="boardgame" collid="98907400">
-	<name sortindex="1">7 Wonders</name>
-		<yearpublished>2010</yearpublished>			<image>https://cf.geekdo-images.com/35h9Za_JvMMMtx_92kT0Jg__original/img/jt70jJDZ1y1FWJs4ZQf5FI8APVY=/0x0/filters:format(jpeg)/pic7149798.jpg</image>
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2023-06-15 10:39:40"/>
+		<numplays>0</numplays>
+	</item>
+	<item objecttype="thing" objectid="68448" subtype="boardgame" collid="98907400">
+		<name sortindex="1">7 Wonders</name>
+		<yearpublished>2010</yearpublished>
+		<image>https://cf.geekdo-images.com/35h9Za_JvMMMtx_92kT0Jg__original/img/jt70jJDZ1y1FWJs4ZQf5FI8APVY=/0x0/filters:format(jpeg)/pic7149798.jpg</image>
 		<thumbnail>https://cf.geekdo-images.com/35h9Za_JvMMMtx_92kT0Jg__thumb/img/BUOso8b0M1aUOkU80FWlhE8uuxc=/fit-in/200x150/filters:strip_icc()/pic7149798.jpg</thumbnail>
-			<status own="0" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2022-10-19 04:58:45" />
-	<numplays>0</numplays>							</item>
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2023-06-15 10:39:42"/>
+		<numplays>0</numplays>
+	</item>
+	<item objecttype="thing" objectid="346703" subtype="boardgame" collid="107382659">
+		<name sortindex="1">7 Wonders: Architects</name>
+		<yearpublished>2021</yearpublished>
+		<image>https://cf.geekdo-images.com/BGtYtHbLgYhYyNMoyOm1RA__original/img/05P7xaW8B4ueCvItryBjO5wVA5s=/0x0/filters:format(jpeg)/pic7416525.jpg</image>
+		<thumbnail>https://cf.geekdo-images.com/BGtYtHbLgYhYyNMoyOm1RA__thumb/img/Qml2TbcN2IyaA-PtHKcIrhnELd4=/fit-in/200x150/filters:strip_icc()/pic7416525.jpg</thumbnail>
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2023-06-15 11:03:02"/>
+		<numplays>0</numplays>
+	</item>
 		<item objecttype="thing" objectid="240892" subtype="boardgame" collid="98907281">
-	<name sortindex="1">8Bit Box</name>
-		<yearpublished>2018</yearpublished>			<image>https://cf.geekdo-images.com/aGzXxLFegJzqV-Y4e5nK4Q__original/img/etnz2-sJUXu0_TqvGfrQSNC-V0c=/0x0/filters:format(jpeg)/pic4206325.jpg</image>
+		<name sortindex="1">8Bit Box</name>
+		<yearpublished>2018</yearpublished>
+		<image>https://cf.geekdo-images.com/aGzXxLFegJzqV-Y4e5nK4Q__original/img/etnz2-sJUXu0_TqvGfrQSNC-V0c=/0x0/filters:format(jpeg)/pic4206325.jpg</image>
 		<thumbnail>https://cf.geekdo-images.com/aGzXxLFegJzqV-Y4e5nK4Q__thumb/img/8a906ljjyB9sWPzqMBxayP8viaw=/fit-in/200x150/filters:strip_icc()/pic4206325.jpg</thumbnail>
-			<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0"  preordered="0" lastmodified="2022-10-19 04:55:01" />
-	<numplays>0</numplays>							</item>
-		
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2022-10-19 04:55:01"/>
+		<numplays>0</numplays>
+	</item>
+	<item objecttype="thing" objectid="302260" subtype="boardgame" collid="98906448">
+		<name sortindex="1">Abandon All Artichokes</name>
+		<yearpublished>2020</yearpublished>
+		<image>https://cf.geekdo-images.com/qwFz_zhMjIxRjgAIx__8WQ__original/img/pxX6W95d3V38ZuynABAtorApTc8=/0x0/filters:format(png)/pic5335069.png</image>
+		<thumbnail>https://cf.geekdo-images.com/qwFz_zhMjIxRjgAIx__8WQ__thumb/img/PPRNQrHRGq48IhY6PlOXg95aYUw=/fit-in/200x150/filters:strip_icc()/pic5335069.png</thumbnail>
+		<status own="1" prevowned="0" fortrade="0" want="0" wanttoplay="0" wanttobuy="0" wishlist="0" preordered="0" lastmodified="2023-06-15 10:40:38"/>
+		<numplays>0</numplays>
+	</item>
 </items>

@@ -7,6 +7,12 @@ main {
   gap: 10px;
 }
 
+main > .oborus-logo {
+  height: 60px;
+  position: absolute;
+  z-index: -1;
+}
+
 .search-area {
   display: flex;
   flex-direction: column;
@@ -40,7 +46,7 @@ main {
 .search-bar > button {
   margin: 0px;
   margin-left: 10px;
-  padding: 6px 10px 6px 10px;
+  padding: 0px 8px;
   display: flex;
   vertical-align: middle;
   align-items: center;
@@ -55,19 +61,20 @@ main {
   margin-top: 10px;
 }
 
-.boardgame-card .clickable {
+.boardgame-card {
   position: relative;
-}
-.boardgame-card .oborus-logo {
-  position: absolute;
-  z-index: 1;
-  width: 40px;
-  left: 0px;
-  top: 0px;
 }
 
 .boardgame-card .clickable {
   color: var(--text-main);
+}
+
+.boardgame-card .oborus-logo {
+  position: absolute;
+  z-index: 1;
+  width: 50px;
+  right: 0;
+  top: 0;
 }
 
 .boardgame-card .thumbnail {
@@ -80,6 +87,41 @@ main {
   padding: 0px 5px;
 }
 
+.boardgame-card .players,
+.boardgame-card .playtime {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-bright);
+  font-size: 0.9em;
+  font-weight: bold;
+  background-color: #008c99cc;
+  box-shadow: 0 0 5px #111;
+  padding: 2px 4px;
+  border-radius: 10px;
+  line-height: 0;
+  width: 35px;
+}
+.boardgame-card .players {
+  left: 0;
+  flex-direction: row-reverse;
+}
+
+.boardgame-card .playtime {
+  left: 0;
+  top: 65px;
+}
+
+/* .boardgame-card .players span,
+.boardgame-card .playtime span {
+  writing-mode: vertical-lr;
+  text-orientation: sideways-right;
+} */
+
 .boardgame-card .clickable:hover {
   color: var(--text-bright);
 }
@@ -89,8 +131,11 @@ main {
   box-shadow: 0px 2px 20px black;
 }
 
-.boardgame-card.owned .clickable {
-  border-radius: 10px;
+.boardgame-card.owned .thumbnail {
+  border: 3px solid #00d2e6;
+}
+.boardgame-card.owned .name {
+  color: #00d2e6;
 }
 
 @media only screen and (max-width: 600px) {
@@ -101,9 +146,6 @@ main {
     align-items: stretch;
     gap: 10px;
     margin-top: 10px;
-  }
-
-  .boardgame-card {
   }
 
   .boardgame-card .clickable {
@@ -136,17 +178,17 @@ main {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 5px 20px;
     width: fit-content;
+    margin: 10px 0;
   }
 
   .boardgame-card .name {
     text-align: center;
-    margin: 0px;
-    max-width: 150px;
+    margin: 0;
   }
   .boardgame-card .thumbnail {
     height: 150px;
+    margin: 0px 20px;
   }
 
   .boardgame-card.owned {

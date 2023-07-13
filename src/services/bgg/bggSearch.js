@@ -96,10 +96,8 @@ export async function SearchMock() {
     retry(
       () =>
         fetch(MOCK_DATA_URL + 'BGGmockSearchData.xml')
-          .then((data) => {
-            data = parseBggData(data)
-            return processData(data)
-          })
+          .then((data) => parseBggData(data))
+          .then((data) => processData(data))
           .catch((e) => {
             throw e
           }),

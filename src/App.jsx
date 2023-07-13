@@ -7,7 +7,8 @@ import { ColType, postPlay } from './services/bgg/bgg'
 // Componentes React
 import { SearchBar } from './components/SearchBar'
 import { BoardGameCard } from './components/BoardGameCard'
-import { BoardGameCollection } from './components/BoardGameCollectionBGG'
+import { BoardGameCollection } from './components/BoardGameCollection'
+import { OborusLogo } from './components/icons/OborusLogo'
 
 const globalMock = false
 
@@ -15,10 +16,11 @@ function App() {
   const [mock, setMock] = useState(globalMock)
 
   const [collection] = useCollection({
-    globalMock,
+    mock,
     showExpansions: true,
     username: 'Oborus',
     colFilter: ColType.Owned,
+    detailed: true,
   })
 
   return (
@@ -34,6 +36,7 @@ function App() {
         />
       </section> */}
 
+      <OborusLogo />
       <h1>LUDOTECA OBORUS</h1>
 
       <SearchBar

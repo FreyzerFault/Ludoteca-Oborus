@@ -303,4 +303,117 @@
 <link type="boardgamepublisher" id="8089" value="Tesco"/>
 <link type="boardgamepublisher" id="571" value="Tyco"/>
 </item>
+<item type="boardgame" id="161970">
+<thumbnail>https://cf.geekdo-images.com/ztNshEv3Fsm46HCJaEOFPw__thumb/img/-a0oJ_E49V_7PDW78W7KIyS3rF8=/fit-in/200x150/filters:strip_icc()/pic2241156.png</thumbnail>
+<image>https://cf.geekdo-images.com/ztNshEv3Fsm46HCJaEOFPw__original/img/SP4ItZ27dLweUPbz_bF7C-P7GtA=/0x0/filters:format(png)/pic2241156.png</image>
+<name type="primary" sortindex="1" value="Alchemists"/>
+<name type="alternate" sortindex="1" value="Alchemicy"/>
+<name type="alternate" sortindex="4" value="De Alchemist"/>
+<name type="alternate" sortindex="5" value="Die Alchemisten"/>
+<name type="alternate" sortindex="1" value="Alchimistes"/>
+<name type="alternate" sortindex="1" value="Alchimisti"/>
+<name type="alternate" sortindex="1" value="Alchimiștii"/>
+<name type="alternate" sortindex="1" value="Alchymisté"/>
+<name type="alternate" sortindex="1" value="Alquimistas"/>
+<name type="alternate" sortindex="1" value="Алхимики"/>
+<name type="alternate" sortindex="1" value="アルケミスト"/>
+<name type="alternate" sortindex="1" value="煉金術士"/>
+<name type="alternate" sortindex="1" value="알케미스트"/>
+<name type="alternate" sortindex="1" value="연금술 아카데미"/>
+<description>In Alchemists, two &nbsp; to four budding alchemists compete to discover the secrets of their mystical art. Points can be earned in various ways, but most points are earned by publishing theories &ndash; correct theories, that is &mdash; and therein lies the problem.&#10;&#10;The game is played in six rounds. At the beginning of the round, players choose their play order. Those who choose to play later get more rewards.&#10;Players declare all their actions by placing cubes on the various action spaces, then each action space is evaluated in order. Players gain knowledge by mixing ingredients and testing the results using a smartphone app (iOS, Android, and also Windows) that randomizes the rules of alchemy for each new game. And if the alchemists are longing for something even more special, they can always buy magical artifacts to get an extra push. There are 9 of them (different for each game) and they are not only very powerful, but also very expensive. But money means nothing, when there's academic pride at stake! And the possession of these artifacts will definitely earn you some reputation too. Players can also earn money by selling potions of questionable quality to adventurers, but money is just a means to an end. The alchemists don't want riches, after all. They want respect, and respect usually comes from publishing theories.&#10;&#10;During play, players' reputations will go up and down. After six rounds and a final exhibition, reputation will be converted into points. Points will also be scored for artifacts and grants. Then the secrets of alchemy are revealed and players score points or lose points based on whether their theories were correct. Whoever has the most points at the end of the game wins.&#10;&#10;Flavor text:&#10;Mandrake root and scorpion tail; spongy mushroom and warty toad &mdash; these are the foundations of the alchemist's livelihood, science, and art.&#10;&#10;But what arcane secrets do these strange ingredients hide? Now it is time to find out. Mix them into potions and drink them to determine their effects &mdash; or play it safe and test the concoction on a helpful assistant! Gain riches selling potions to wandering adventurers and invest these riches in powerful artifacts. As your knowledge grows, so will your reputation, as you publish your theories for all to see. Knowledge, wealth, and fame can all be found in the murky depths of the alchemist's cauldron.&#10;&#10;</description>
+<yearpublished value="2014"/>
+<minplayers value="2"/>
+<maxplayers value="4"/>
+<poll name="suggested_numplayers" title="User Suggested Number of Players" totalvotes="387">
+<results numplayers="1">
+<result value="Best" numvotes="1"/>
+<result value="Recommended" numvotes="11"/>
+<result value="Not Recommended" numvotes="207"/>
+</results>
+<results numplayers="2">
+<result value="Best" numvotes="60"/>
+<result value="Recommended" numvotes="226"/>
+<result value="Not Recommended" numvotes="47"/>
+</results>
+<results numplayers="3">
+<result value="Best" numvotes="152"/>
+<result value="Recommended" numvotes="171"/>
+<result value="Not Recommended" numvotes="3"/>
+</results>
+<results numplayers="4">
+<result value="Best" numvotes="203"/>
+<result value="Recommended" numvotes="111"/>
+<result value="Not Recommended" numvotes="20"/>
+</results>
+<results numplayers="4+">
+<result value="Best" numvotes="0"/>
+<result value="Recommended" numvotes="5"/>
+<result value="Not Recommended" numvotes="168"/>
+</results>
+</poll>
+<playingtime value="120"/>
+<minplaytime value="120"/>
+<maxplaytime value="120"/>
+<minage value="13"/>
+<poll name="suggested_playerage" title="User Suggested Player Age" totalvotes="90">
+<results>
+<result value="2" numvotes="0"/>
+<result value="3" numvotes="0"/>
+<result value="4" numvotes="0"/>
+<result value="5" numvotes="0"/>
+<result value="6" numvotes="0"/>
+<result value="8" numvotes="5"/>
+<result value="10" numvotes="9"/>
+<result value="12" numvotes="37"/>
+<result value="14" numvotes="32"/>
+<result value="16" numvotes="4"/>
+<result value="18" numvotes="3"/>
+<result value="21 and up" numvotes="0"/>
+</results>
+</poll>
+<poll name="language_dependence" title="Language Dependence" totalvotes="57">
+<results>
+<result level="1" value="No necessary in-game text" numvotes="0"/>
+<result level="2" value="Some necessary text - easily memorized or small crib sheet" numvotes="22"/>
+<result level="3" value="Moderate in-game text - needs crib sheet or paste ups" numvotes="33"/>
+<result level="4" value="Extensive use of text - massive conversion needed to be playable" numvotes="2"/>
+<result level="5" value="Unplayable in another language" numvotes="0"/>
+</results>
+</poll>
+<link type="boardgamecategory" id="1039" value="Deduction"/>
+<link type="boardgamecategory" id="1010" value="Fantasy"/>
+<link type="boardgamemechanic" id="2838" value="Action Drafting"/>
+<link type="boardgamemechanic" id="2922" value="Constrained Bidding"/>
+<link type="boardgamemechanic" id="3002" value="Deduction"/>
+<link type="boardgamemechanic" id="2875" value="End Game Bonuses"/>
+<link type="boardgamemechanic" id="2850" value="Events"/>
+<link type="boardgamemechanic" id="2040" value="Hand Management"/>
+<link type="boardgamemechanic" id="2041" value="Open Drafting"/>
+<link type="boardgamemechanic" id="2828" value="Turn Order: Progressive"/>
+<link type="boardgamefamily" id="41489" value="Components: Digital Hybrid – App/Website Required"/>
+<link type="boardgamefamily" id="70361" value="Digital Implementations: Boiteajeux"/>
+<link type="boardgamefamily" id="64970" value="Theme: Alchemy"/>
+<link type="boardgameexpansion" id="174522" value="Alchemists: Publisher promo card"/>
+<link type="boardgameexpansion" id="167849" value="Alchemists: Ring of Favor"/>
+<link type="boardgameexpansion" id="204650" value="Alchemists: The King's Golem"/>
+<link type="boardgameaccessory" id="340932" value="Alchemists: Folded Space Insert"/>
+<link type="boardgameaccessory" id="378755" value="Alchemists: Spielmaterial.de Upgrade"/>
+<link type="boardgameaccessory" id="348631" value="Alchemists: The GiftForge Insert"/>
+<link type="boardgamedesigner" id="75718" value="Matúš Kotry"/>
+<link type="boardgameartist" id="12692" value="David Cochard"/>
+<link type="boardgamepublisher" id="7345" value="Czech Games Edition"/>
+<link type="boardgamepublisher" id="3475" value="Arclight Games"/>
+<link type="boardgamepublisher" id="10768" value="Cranio Creations"/>
+<link type="boardgamepublisher" id="2366" value="Devir"/>
+<link type="boardgamepublisher" id="23205" value="DiceTree Games"/>
+<link type="boardgamepublisher" id="29194" value="GaGa Games"/>
+<link type="boardgamepublisher" id="2862" value="The Game Master BV"/>
+<link type="boardgamepublisher" id="264" value="Heidelberger Spieleverlag"/>
+<link type="boardgamepublisher" id="8923" value="IELLO"/>
+<link type="boardgamepublisher" id="8291" value="Korea Boardgames Co., Ltd."/>
+<link type="boardgamepublisher" id="25203" value="Lex Games"/>
+<link type="boardgamepublisher" id="7992" value="MINDOK"/>
+<link type="boardgamepublisher" id="30552" value="One Moment Games"/>
+<link type="boardgamepublisher" id="7466" value="Rebel Sp. z o.o."/>
+</item>
 </items>

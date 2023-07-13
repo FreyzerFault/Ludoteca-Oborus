@@ -1,7 +1,6 @@
 import { PropTypes } from 'prop-types'
+import 'boxicons'
 import { useState, useEffect, useRef } from 'react'
-
-import { SearchIcon } from './icons/SearchIcon'
 
 export function SearchInput({ searchAsTyping = false, onSearch }) {
   // STATES
@@ -53,7 +52,7 @@ export function SearchInput({ searchAsTyping = false, onSearch }) {
         />
 
         <button type='submit'>
-          <SearchIcon className='search-icon' />
+          <box-icon name='search-alt-2' color='#fff' size='25px'></box-icon>
         </button>
       </div>
     </form>

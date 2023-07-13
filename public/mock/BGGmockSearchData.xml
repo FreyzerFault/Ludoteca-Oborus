@@ -1,18 +1,46 @@
-<items total="326" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse">
-    <item type="boardgame" id="134277">
-        <name type="alternate" value="The 7 Wonders of Catan (fan expansion for Catan)"/>
-        <yearpublished value="2012"/>
+<items total="11" termsofuse="https://boardgamegeek.com/xmlapi/termsofuse">
+    <item type="boardgame" id="365449">
+        <name type="primary" value="15 Dice of Civilization"/>
+        <yearpublished value="2023"/>
     </item>
-    <item type="boardgame" id="110308">
-        <name type="primary" value="7 Wonders: Catan"/>
-        <yearpublished value="2011"/>
+    <item type="boardgame" id="30561">
+        <name type="primary" value="1644: Rules For Battles Of The English Civil War (Second Edition)"/>
+        <yearpublished value="2007"/>
     </item>
-    <item type="boardgame" id="123386">
-        <name type="primary" value="Baden-Württemberg Catan"/>
-        <yearpublished value="2012"/>
+    <item type="boardgame" id="27680">
+        <name type="primary" value="1936: Guerra Civil"/>
+        <yearpublished value="2006"/>
     </item>
-    <item type="boardgame" id="13">
-        <name type="primary" value="CATAN"/>
-        <yearpublished value="1995"/>
+    <item type="boardgame" id="155766">
+        <name type="primary" value="7 Dice Wonders: Civilization"/>
+        <yearpublished value="2014"/>
+    </item>
+    <item type="boardgame" id="170267">
+        <name type="primary" value="Across A Deadly Field: Regimental Rules for Civil War Battles"/>
+        <yearpublished value="2014"/>
+    </item>
+    <item type="boardgame" id="177">
+        <name type="primary" value="Advanced Civilization"/>
+        <yearpublished value="1991"/>
+    </item>
+    <item type="boardgame" id="300339">
+        <name type="primary" value="After Civilisation"/>
+        <yearpublished value="2019"/>
+    </item>
+    <item type="boardgame" id="264647">
+        <name type="primary" value="Age of Civilization"/>
+        <yearpublished value="2019"/>
+    </item>
+    <item type="boardgame" id="257866">
+        <name type="primary" value="Agents of Mayhem: Civil Overwatch Patrol"/>
+        <yearpublished value="2018"/>
+    </item>
+    <item type="boardgame" id="267928">
+        <name type="primary" value="All For The Regiment: The American Civil War in Miniature"/>
+        <yearpublished value="2020"/>
+    </item>
+    <item type="boardgame" id="148356">
+        <name type="primary" value="Altar of Freedom: Grand Tactical Battles in the American Civil War"/>
+        <yearpublished value="2013"/>
     </item>
 </items>

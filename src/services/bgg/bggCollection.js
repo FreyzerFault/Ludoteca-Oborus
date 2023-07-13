@@ -3,9 +3,9 @@ import {
   ItemType,
   ColType,
   parseBggData,
-  SortGamesBy,
   SortGamesByDateAdded,
 } from './bgg'
+import { GetBoardGames, GetBoardGamesMock } from './bggThing'
 import { retry } from '../../utils/retry'
 
 import { MOCK_DATA_URL } from '../localData'
@@ -35,9 +35,7 @@ export async function GetCollection({
     () =>
       fetch(URL_BGG_API_COLLECTION + args)
         .then((data) => parseBggData(data))
-        .then((data) => {
-          return processData(data)
-        })
+        .then((data) => processData(data))
         .catch((e) => {
           throw e
         }),
@@ -46,6 +44,37 @@ export async function GetCollection({
       maxTries: MAX_REQUEST_TRIES,
       cooldownInSeconds: COOLDOWN_BETWEEN_REQUESTS,
     }
+  )
+}
+
+// Devuelve los Juegos pero con mas datos extra
+export async function GetCollectionDetailed({
+  username = 'oborus',
+  subtype = ItemType.BoardGame,
+  excludeSubtype = ItemType.Expansion,
+  colFilter = ColType.Owned,
+}) {
+  return GetCollectionIds({
+    username,
+    subtype,
+    excludeSubtype,
+    colFilter,
+  }).then((gameIds) =>
+    GetBoardGames({
+      gameIds,
+    })
+  )
+}
+
+// Array con IDs de los juegos en la coleccion
+async function GetCollectionIds({
+  username = 'oborus',
+  subtype = ItemType.BoardGame,
+  excludeSubtype = ItemType.Expansion,
+  colFilter = ColType.Owned,
+}) {
+  return GetCollection({ username, subtype, excludeSubtype, colFilter }).then(
+    (col) => col.map((game) => game.id)
   )
 }
 
@@ -62,11 +91,11 @@ function processData(data) {
     boardGames?.map((item) => ({
       id: item?._objectid,
       name: item?.name.toString(),
+      year: item?.yearpublished,
+      description: item?.description,
+      subtype: item?._subtype,
       thumbnailUrl: item?.thumbnail,
       imageUrl: item?.image,
-      year: item?.yearpublished,
-      subtype: item?._subtype,
-      description: item?.description,
       lastModified: item?.status?._lastmodified,
     }))
   )
@@ -79,10 +108,8 @@ export async function GetCollectionMock() {
     retry(
       () =>
         fetch(MOCK_DATA_URL + 'BGGmockCollectionData.xml')
-          .then((data) => {
-            data = parseBggData(data)
-            return processData(data)
-          })
+          .then((data) => parseBggData(data))
+          .then((data) => processData(data))
           .catch((e) => {
             throw e
           }),
@@ -93,4 +120,10 @@ export async function GetCollectionMock() {
       }
     )
   )
+}
+
+export async function GetCollectionDetailedMock() {
+  return GetCollectionMock()
+    .then((games) => games.map((game) => game.id))
+    .then((gameIds) => GetBoardGamesMock({ gameIds }))
 }
