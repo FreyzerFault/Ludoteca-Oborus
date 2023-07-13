@@ -105,7 +105,7 @@ function processData(data) {
     minPlayers: parseInt(item?.minplayers?._value),
     maxPlayers: parseInt(item?.maxplayers?._value),
     avgPlayTime: parseInt(item?.playingtime?._value),
-    minPlaytime: parseInt(item?.maxplaytime?._value),
+    minPlaytime: parseInt(item?.minplaytime?._value),
     maxPlaytime: parseInt(item?.maxplaytime?._value),
     subtype: item?._subtype,
     thumbnailUrl: item?.thumbnail,

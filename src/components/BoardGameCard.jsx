@@ -79,25 +79,37 @@ Players.propTypes = {
 }
 
 function Playtime({ avgPlaytime, minPlaytime, maxPlaytime }) {
+  const noMinMax = isNaN(minPlaytime) && isNaN(maxPlaytime)
+  const noAvg = isNaN(avgPlaytime)
+  const sameMinMax =
+    !isNaN(minPlaytime) && !isNaN(maxPlaytime) && minPlaytime === maxPlaytime
+
+  if (noAvg && noMinMax) return
+
   return (
-    (!isNaN(avgPlaytime) || (!isNaN(minPlaytime) && !isNaN(maxPlaytime))) && (
-      <section className='playtime'>
-        <box-icon
-          name='time-five'
-          type='solid'
-          color='white'
-          size='sm'
-        ></box-icon>
-        {/* Tiene MÍNIMO y MÁXIMO de Playtime */}
-        {isNaN(avgPlaytime) && !isNaN(minPlaytime) && !isNaN(maxPlaytime) && (
-          <p>
-            {minPlaytime} - {maxPlaytime}
-          </p>
-        )}
-        {/* Solo tiene MEDIA de Playtime*/}
-        {!isNaN(avgPlaytime) && <p>{avgPlaytime}</p>}
-      </section>
-    )
+    <section className='playtime'>
+      <box-icon
+        name='time-five'
+        type='solid'
+        color='white'
+        size='sm'
+      ></box-icon>
+
+      {/* Tiene MÍNIMO y MÁXIMO de Playtime */}
+      {!sameMinMax && (
+        <>
+          <p>{minPlaytime}</p>
+          <p>-</p>
+          <p>{maxPlaytime}</p>
+        </>
+      )}
+
+      {/* MIN === MAX */}
+      {sameMinMax && <p>{minPlaytime}</p>}
+
+      {/* Solo tiene MEDIA de Playtime*/}
+      {noMinMax && <p>{avgPlaytime}</p>}
+    </section>
   )
 }
 
