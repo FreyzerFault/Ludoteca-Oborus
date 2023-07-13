@@ -145,7 +145,7 @@ main > .oborus-logo {
   color: #00d2e6;
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 300px) {
   .search-results {
     display: flex;
     flex-direction: column;
@@ -160,13 +160,19 @@ main > .oborus-logo {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 120px;
     padding: 10px 20px;
     gap: 10px;
   }
+
+  .boardgame-card .players,
+  .boardgame-card .playtime {
+    scale: 80%;
+    translate: 0 -5px;
+  }
 }
 
-@media only screen and (min-width: 450px) {
+@media only screen and (min-width: 300px) {
   .search-results {
     display: grid;
     gap: 20px;
@@ -201,6 +207,16 @@ main > .oborus-logo {
   .boardgame-card.owned {
     background-size: 20%;
     background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .search-results {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+
+  .boardgame-card .thumbnail {
+    height: 130px;
   }
 }
 

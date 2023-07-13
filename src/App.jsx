@@ -37,6 +37,7 @@ function App() {
       </section> */}
 
       <OborusLogo />
+      <h1> </h1>
       <h1>LUDOTECA OBORUS</h1>
 
       <SearchBar
