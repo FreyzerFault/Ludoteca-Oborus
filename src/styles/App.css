@@ -124,11 +124,18 @@ main > .oborus-logo {
 
 .boardgame-card .clickable:hover {
   color: var(--text-bright);
+  font-weight: normal;
+  font-size: 1em;
 }
 
 .boardgame-card .clickable:hover .thumbnail {
   scale: 105%;
   box-shadow: 0px 2px 20px black;
+}
+
+.boardgame-card .clickable:hover .name {
+  scale: 105%;
+  text-shadow: 0px 2px 20px black;
 }
 
 .boardgame-card.owned .thumbnail {
