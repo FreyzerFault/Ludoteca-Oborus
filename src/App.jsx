@@ -47,7 +47,10 @@ function App() {
         myCollection={collection}
       />
 
-      <section>
+      <section
+        className='collection-container'
+        data-testid='collection-container'
+      >
         <BoardGameCollection
           collection={collection}
           username={'Oborus'}

@@ -10,7 +10,10 @@ export function BoardGameCard({ data }) {
   if (!img) img = IMG_NOT_FOUND_URL
 
   return (
-    <div className={`boardgame-card ${data.owned ? 'owned' : ''}`}>
+    <div
+      className={`boardgame-card ${data.owned ? 'owned' : ''}`}
+      data-testid='boardgame-card'
+    >
       {data.owned && <OborusLogo />}
 
       <a
@@ -60,14 +63,14 @@ function Players({ minPlayers, maxPlayers }) {
         <box-icon name='group' type='solid' color='white' size='sm'></box-icon>
         {/* Tiene MÍNIMO y MÁXIMO de Jugadores */}
         {!isNaN(minPlayers) && !isNaN(maxPlayers) && (
-          <p>
+          <span>
             {minPlayers} - {maxPlayers}
-          </p>
+          </span>
         )}
         {/* Solo tiene MÍNIMO de Jugadores */}
-        {!isNaN(minPlayers) && isNaN(maxPlayers) && <p>{minPlayers}</p>}
+        {!isNaN(minPlayers) && isNaN(maxPlayers) && <span>{minPlayers}</span>}
         {/* Solo tiene MÁXIMO de Jugadores */}
-        {isNaN(minPlayers) && !isNaN(maxPlayers) && <p>{maxPlayers}</p>}
+        {isNaN(minPlayers) && !isNaN(maxPlayers) && <span>{maxPlayers}</span>}
       </section>
     )
   )
@@ -98,17 +101,17 @@ function Playtime({ avgPlaytime, minPlaytime, maxPlaytime }) {
       {/* Tiene MÍNIMO y MÁXIMO de Playtime */}
       {!sameMinMax && (
         <>
-          <p>{minPlaytime}</p>
-          <p>-</p>
-          <p>{maxPlaytime}</p>
+          <span>{minPlaytime}</span>
+          <span>-</span>
+          <span>{maxPlaytime}</span>
         </>
       )}
 
       {/* MIN === MAX */}
-      {sameMinMax && <p>{minPlaytime}</p>}
+      {sameMinMax && <span>{minPlaytime}</span>}
 
       {/* Solo tiene MEDIA de Playtime*/}
-      {noMinMax && <p>{avgPlaytime}</p>}
+      {noMinMax && <span>{avgPlaytime}</span>}
     </section>
   )
 }

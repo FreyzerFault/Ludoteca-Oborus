@@ -92,23 +92,30 @@ main > .oborus-logo {
   position: absolute;
   top: 0;
   z-index: 1;
-  flex-direction: row;
-  justify-content: center;
+
+  width: 35px;
+
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: start;
   gap: 4px;
+
   color: var(--text-bright);
   font-size: 0.9em;
   font-weight: bold;
+
   background-color: #008c99cc;
   box-shadow: 0 0 5px #111;
   padding: 2px 4px;
   border-radius: 10px;
-  line-height: 0;
-  width: 35px;
 }
 .boardgame-card .players {
   left: 0;
-  flex-direction: row-reverse;
+}
+.boardgame-card .playtime > span:nth-of-type(2) {
+  background-color: red;
+  line-height: 0em;
 }
 
 .boardgame-card .playtime {
