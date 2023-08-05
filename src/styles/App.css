@@ -1,8 +1,9 @@
 main {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  text-align: center;
+  align-items: center;
+  justify-content: stretch;
+  /* text-align: center; */
   width: 100%;
   gap: 10px;
 }
@@ -13,6 +14,7 @@ main > .oborus-logo {
   z-index: -1;
 }
 
+/* BUSQUEDA */
 .search-area {
   display: flex;
   flex-direction: column;
@@ -61,8 +63,90 @@ main > .oborus-logo {
   margin-top: 10px;
 }
 
+/* COLECCION */
+.boardgame-collection {
+  width: 100%;
+  margin-top: 50px;
+  padding: 0 5px;
+  background-color: var(--background-alt);
+  border-radius: 50px;
+}
+
+.collection-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+}
+
+.collection-title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.sort-buttons {
+  /* display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 5px;
+
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.sort-buttons .sort-btn {
+  /* flex-grow: 1; */
+  text-align: center;
+  padding: 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  cursor: pointer;
+
+  border: 2px outset var(--background-alt);
+  background-color: var(--background);
+  border-radius: 3px;
+  color: var(#555);
+
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.sort-buttons .sort-btn label {
+  cursor: pointer;
+}
+
+.sort-buttons .sort-btn:hover {
+  color: var(--text-bright);
+  background-color: var(--background-alt);
+}
+.sort-buttons .sort-btn label:before {
+  content: '';
+  background: none;
+  border: 2px solid var(--text-bright);
+  border-radius: 100%;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+}
+.sort-buttons .sort-btn input {
+  display: none;
+}
+.sort-buttons .sort-btn input:checked ~ label:before {
+  background-color: var(--text-bright);
+}
+
+/* CARD */
 .boardgame-card {
   position: relative;
+  background-color: var(--background);
+  border-radius: 15px;
 }
 
 .boardgame-card .clickable {
@@ -77,10 +161,16 @@ main > .oborus-logo {
   top: 0;
 }
 
+.boardgame-card .thumbnail-container {
+  position: relative;
+}
+
 .boardgame-card .thumbnail {
   height: 100%;
   border-radius: 5px;
   box-shadow: 0px 2px 5px black;
+  object-fit: cover;
+  object-position: 50% 0;
 }
 
 .boardgame-card .name {
@@ -104,6 +194,7 @@ main > .oborus-logo {
   color: var(--text-bright);
   font-size: 0.9em;
   font-weight: bold;
+  white-space: nowrap;
 
   background-color: #008c99cc;
   box-shadow: 0 0 5px #111;
@@ -135,8 +226,10 @@ main > .oborus-logo {
   font-size: 1em;
 }
 
-.boardgame-card .clickable:hover .thumbnail {
+.boardgame-card .clickable:hover .thumbnail-container {
   scale: 105%;
+}
+.boardgame-card .clickable:hover .thumbnail {
   box-shadow: 0px 2px 20px black;
 }
 
@@ -150,6 +243,25 @@ main > .oborus-logo {
 }
 .boardgame-card.owned .name {
   color: #00d2e6;
+}
+
+.boardgame-card .difficulty-icon {
+  position: absolute;
+  right: -10.5px;
+  top: 10px;
+  z-index: 1;
+
+  width: 50px;
+  font-size: 1.5em;
+
+  background-color: #008c99aa;
+  border-radius: 100% 100% 20% 20%;
+  border: 1px double #555;
+  border-width: 1px 0 0 3px;
+  /* box-shadow: -2px -2px 2px 0 #111; */
+
+  padding: 0;
+  rotate: -90deg;
 }
 
 @media only screen and (max-width: 300px) {
@@ -170,6 +282,10 @@ main > .oborus-logo {
     height: 120px;
     padding: 10px 20px;
     gap: 10px;
+  }
+
+  .boardgame-card .thumbnail {
+    /* width: 100px; */
   }
 
   .boardgame-card .players,
@@ -206,9 +322,12 @@ main > .oborus-logo {
     text-align: center;
     margin: 0;
   }
+  .boardgame-card .thumbnail-container {
+    margin: 0px 20px;
+  }
   .boardgame-card .thumbnail {
     height: 150px;
-    margin: 0px 20px;
+    max-width: 170px;
   }
 
   .boardgame-card.owned {

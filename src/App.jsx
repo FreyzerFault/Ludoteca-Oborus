@@ -47,15 +47,10 @@ function App() {
         myCollection={collection}
       />
 
-      <section
-        className='collection-container'
-        data-testid='collection-container'
-      >
-        <BoardGameCollection
-          collection={collection}
-          username={'Oborus'}
-        ></BoardGameCollection>
-      </section>
+      <BoardGameCollection
+        collection={collection}
+        username={'Oborus'}
+      ></BoardGameCollection>
 
       {false && (
         <section>

@@ -1,71 +1,91 @@
 import X2JS from 'x2js/xml2json'
 
+import {
+  unescapeAll,
+  unescapeAllAscii,
+  unescapeBadAmpersants,
+} from './scapeChars'
+
 // X2JS Convierte XML a JSON
-export function xml2Json(xml) {
-  // CheckInvalidOcurrencies(xml)
-  xml = replaceInvalidText(xml)
-  // CheckInvalidOcurrencies(xml)
+export function xml2js(xml) {
+  // console.log({ old: xml })
+
+  // &amp; sin espacios adyacentes
+  // const ocurrencia = /(?<!\s)&amp;(?!\s)/g
+
+  // &[...]; que no sea &amp;
+  // const ocurrencia = /&(?!amp;)(\w+|#[0-9]+);/g
+
+  // &
+  // const ocurrencia = '&'
+
+  // &amp;
+  // const ocurrencia = '&amp;'
+
+  // OTRO
+  // const ocurrencia = /(&amp;quot;|&quot;)/g
+
+  // console.log({
+  //   'Ocurrencias de Expresiones Raras ANTES de reemplazar':
+  //     CheckInvalidOcurrencies(xml, ocurrencia),
+  // })
+
+  xml = cleanXMLText(xml)
+
+  // console.log({
+  //   'Ocurrencias de Expresiones Raras DESPUES de reemplazar':
+  //     CheckInvalidOcurrencies(xml, ocurrencia),
+  // })
+  // console.log({ new: xml })
 
   const x2js = new X2JS({ escapeMode: true })
-  const json = x2js.xml_str2json(xml)
-  return json
+  const data = x2js.xml_str2json(xml)
+  if (!data) throw new Error('Error al parsear XML a Object de JS')
+
+  // console.log('Output:', json)
+
+  return data
 }
 
+// TODO Probar cuando no use Vite
+// BGG to JSON library:
+// import { parseBggXmlApi2ThingResponse } from '@code-bucket/board-game-geek'
+
+// export function xml2JsonThing(xmlData) {
+//   const bggResponse = parseBggXmlApi2ThingResponse(xmlData)
+//   console.log(bggResponse)
+//   return bggResponse
+// }
+
 // Reemplaza todos los caracteres codificados, que a la hora de pasarlos por el x2js son invalidos
-function replaceInvalidText(text) {
-  const validText = text
-    .replaceAll('&ndash;', '-')
-    .replaceAll('&mdash;', '-')
-    .replaceAll('&nbsp;', ' ')
-  // .replaceAll('&amp;', '&')
-  // .replaceAll('&quot;', '"')
-  // .replaceAll('&apos;', "'")
-  // .replaceAll('&lt; ', '<')
-  // .replaceAll('&gt;', '>')
-  // .replaceAll('&ntilde;', 'ñ')
-  // .replaceAll('&Ntilde;', 'N')
-  // .replaceAll('&aacute;', 'á')
-  // .replaceAll('&eacute;', 'é')
-  // .replaceAll('&iacute;', 'í')
-  // .replaceAll('&oacute;', 'ó')
-  // .replaceAll('&uacute;', 'ú')
-  // .replaceAll('&Ntilde;', 'N')
-  // .replaceAll('&Aacute;', 'Á')
-  // .replaceAll('&Eacute;', 'É')
-  // .replaceAll('&Iacute;', 'Í')
-  // .replaceAll('&Oacute;', 'Ó')
-  // .replaceAll('&Uacute;', 'Ú')
-  // .replaceAll('&euro;', '€')
-  // .replaceAll('&#039;', "'")
+// Los que esten comentados no son necesarios
+function cleanXMLText(text) {
+  let validText = text
+
+  // &amp;lt; => &lt;
+  validText = unescapeBadAmpersants(text)
+
+  // "              " => " "
+  validText = validText.replaceAll(/ +/g, ' ')
+
+  // "&apos;" => "'", "&Igrave;" => Ì, "&szlig;" => 'ß', ...
+  validText = unescapeAll(validText)
+
+  // "&#10;" => "\n", "&#xxx" => ...
+  validText = unescapeAllAscii(validText)
 
   return validText
 }
 
 // Para checkear cualquier ocurrencia de caracteres invalidos como '&amp;' , '&aacute;' ...
-function CheckInvalidOcurrencies(text) {
-  const invalidInitiator = '&'
+function CheckInvalidOcurrencies(text, invalidExpression = '&') {
+  const matches = [...text.matchAll(invalidExpression)]
 
-  let indexes = [],
-    i = -1
-  while ((i = text.indexOf(invalidInitiator, i + 1)) != -1) {
-    indexes.push(i)
-  }
+  const resultado = matches.map((match) => {
+    const startIndex = Math.max(match.index - 20, 0)
+    const endIndex = Math.min(match.index + match[0].length + 20, text.length)
+    return text.slice(startIndex, endIndex)
+  })
 
-  const phrasesOfOcurrencies = indexes.map((index) =>
-    text.slice(index - 10, index + 20)
-  )
-  console.log({ ocurrencias: phrasesOfOcurrencies })
-}
-
-// Numero de Ocurrencias de un Substring
-function count(main_str, sub_str) {
-  main_str += ''
-  sub_str += ''
-
-  if (sub_str.length <= 0) {
-    return main_str.length + 1
-  }
-
-  const subStr = sub_str.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  return (main_str.match(new RegExp(subStr, 'gi')) || []).length
+  return resultado
 }

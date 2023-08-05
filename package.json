@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.7.0",
+    "@code-bucket/board-game-geek": "^0.3.0",
     "boxicons": "^2.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-spinners": "^0.13.8",
-    "x2js": "github:abdolence/x2js"
+    "x2js": "github:abdolence/x2js",
+    "xmlbuilder": "^15.1.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.36.1",

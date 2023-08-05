@@ -1,4 +1,4 @@
-import { URL_BGG_API, parseBggData, SortGamesByVotes } from './bgg'
+import { URL_BGG_API, parseBggData, SortGamesBy, SortOrder } from './bgg'
 import { retry } from '../../utils/retry'
 
 import { MOCK_DATA_URL } from '../localData'
@@ -10,7 +10,9 @@ const URL_BGG_API_THING = URL_BGG_API + 'thing'
 const MAX_REQUEST_TRIES = 3
 const COOLDOWN_BETWEEN_REQUESTS = 1
 
-export async function GetBoardGames({ gameIds = [] }) {
+// Devuelve los juegos buscando por cada una de sus IDs
+// OtherData son las propiedades de cada juego que se quiere persistir
+export async function GetBoardGames({ gameIds = [], otherData = [] }) {
   if (gameIds.length === 0) return []
 
   // Comprobar el Nº de IDs, si son muchas la URL puede NO SER VALIDA
@@ -38,7 +40,12 @@ export async function GetBoardGames({ gameIds = [] }) {
       maxTries: MAX_REQUEST_TRIES,
       cooldownInSeconds: COOLDOWN_BETWEEN_REQUESTS,
     }
-  )
+  ).then((games) => {
+    // Añadimos los datos adicionales a cada juego
+    return games.map((game, index) => {
+      return { ...game, ...otherData[index] }
+    })
+  })
 }
 
 // Realiza Peticiones por LOTES
@@ -58,7 +65,7 @@ async function RequestInBatches({ gameIds = [], batchSize }) {
     })
     let args = `?id=${batchIds.join(',')}`
 
-    // Stats devuelve, ademas, datos de ranking y scores de BGG
+    // Stats devuelve, ademas, datos de ranking, dificultad y scores de BGG
     const includeStats = true
     if (includeStats) args += '&stats=1'
 
@@ -110,12 +117,18 @@ function processData(data) {
     subtype: item?._subtype,
     thumbnailUrl: item?.thumbnail,
     imageUrl: item?.image,
-    votes: parseInt(item?.statistics?.ratings?.usersrated._value),
+    votes: parseInt(item?.statistics?.ratings?.usersrated?._value),
+    // DIFICULTAD [0, 5]
+    difficulty: parseFloat(item?.statistics?.ratings?.averageweight?._value),
   }))
 }
 
 export async function GetBoardGamesSortByVotes({ gameIds = [] }) {
-  return SortGamesByVotes(GetBoardGames({ gameIds }))
+  return SortGamesBy({
+    games: GetBoardGames({ gameIds }),
+    sortBy: 'votes',
+    order: SortOrder.Descending,
+  })
 }
 
 // ========================== MOCK ==========================

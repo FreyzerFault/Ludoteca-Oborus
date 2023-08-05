@@ -5,6 +5,10 @@ import { OborusLogo } from './icons/OborusLogo'
 
 import { IMG_NOT_FOUND_URL } from '../services/localData'
 
+// import Easy from '/Dificultad/easy.svg'
+// import Medium from '/Dificultad/medium.svg'
+// import Hard from '/Dificultad/hard.svg'
+
 export function BoardGameCard({ data }) {
   let img = data?.thumbnailUrl
   if (!img) img = IMG_NOT_FOUND_URL
@@ -22,19 +26,28 @@ export function BoardGameCard({ data }) {
         target='_blank'
         rel='noreferrer'
       >
+        {/* Jugadores Min - Max */}
         <Players minPlayers={data.minPlayers} maxPlayers={data.maxPlayers} />
+
+        {/* Tiempo de Juego Min - Max ó Avg */}
         <Playtime
           avgPlaytime={data.avgPlayTime}
           minPlaytime={data.minPlaytime}
           maxPlaytime={data.maxPlaytime}
         />
-        <img
-          className='thumbnail'
-          src={img}
-          alt={`${data.name} Thumbnail`}
-          loading='lazy'
-        ></img>
 
+        {/* Imagen del Juego */}
+        <div className='thumbnail-container'>
+          <img
+            className='thumbnail'
+            src={img}
+            alt={`${data.name} Thumbnail`}
+            loading='lazy'
+          />
+          {/* Dificultad del Juego */}
+          <Difficulty difficulty={data.difficulty} />
+        </div>
+        {/* Nombre del Juego */}
         <p className='name'>{data.name}</p>
       </a>
     </div>
@@ -46,6 +59,7 @@ BoardGameCard.propTypes = {
     imageUrl: PropTypes.string,
     thumbnailUrl: PropTypes.string,
     name: PropTypes.string,
+    description: PropTypes.string,
     id: PropTypes.any,
     owned: PropTypes.bool,
     minPlayers: PropTypes.number,
@@ -53,6 +67,8 @@ BoardGameCard.propTypes = {
     avgPlayTime: PropTypes.number,
     minPlaytime: PropTypes.number,
     maxPlaytime: PropTypes.number,
+    markAsOwned: PropTypes.bool,
+    difficulty: PropTypes.number,
   }).isRequired,
 }
 
@@ -77,8 +93,8 @@ function Players({ minPlayers, maxPlayers }) {
 }
 
 Players.propTypes = {
-  maxPlayers: PropTypes.number,
-  minPlayers: PropTypes.number,
+  maxPlayers: PropTypes.any,
+  minPlayers: PropTypes.any,
 }
 
 function Playtime({ avgPlaytime, minPlaytime, maxPlaytime }) {
@@ -117,7 +133,41 @@ function Playtime({ avgPlaytime, minPlaytime, maxPlaytime }) {
 }
 
 Playtime.propTypes = {
-  avgPlaytime: PropTypes.number,
-  maxPlaytime: PropTypes.number,
-  minPlaytime: PropTypes.number,
+  avgPlaytime: PropTypes.any,
+  maxPlaytime: PropTypes.any,
+  minPlaytime: PropTypes.any,
+}
+
+function Difficulty({ difficulty }) {
+  if (isNaN(difficulty)) return null
+
+  const difficulties = [
+    { name: 'easy', max: 2, emoji: '😀' },
+    { name: 'easy-medium', max: 2, emoji: '🫡' },
+    { name: 'medium', max: 3, emoji: '🧐' },
+    { name: 'medium-hard', max: 4, emoji: '🤯' },
+    { name: 'hard', max: 5, emoji: '😵' },
+  ]
+  let difficultyName = ''
+
+  for (const level of difficulties) {
+    if (difficulty < level.max) {
+      difficultyName = level.name
+      break
+    }
+  }
+
+  return (
+    // <span src={`/Dificultad/${difficultyName}.svg`} className='difficulty-icon'>
+    //   {difficulties.find(({ name, max }) => difficulty < max).emoji}
+    // </span>
+    <img
+      src={`/Dificultad/${difficultyName}.svg`}
+      className='difficulty-icon'
+    />
+  )
+}
+
+Difficulty.propTypes = {
+  difficulty: PropTypes.any,
 }

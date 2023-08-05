@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { xml2Json } from '../../utils/xml2json'
+import { xml2js } from '../../utils/xml2json'
 
 import { RetryError } from '../../utils/retry'
 import { MOCK_DATA_URL } from '../localData'
@@ -35,62 +35,126 @@ export const ColType = {
   WantParts: 'wantparts',
 }
 
-export function SortGamesBy({ games, sortBy }) {
-  return games.sort((a, b) => (a[sortBy] < b[sortBy] ? 1 : -1))
+export const SortOrder = {
+  Ascending: 1,
+  Descending: -1,
+}
+export const SortType = {
+  date: {
+    name: 'Fecha Adquisición',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'dateAdded',
+  },
+  votes: {
+    name: 'Popularidad',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'votes',
+  },
+  rating: {
+    name: 'Puntuación',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'avgRating',
+  },
+  ranking: {
+    name: 'Ranking',
+    defaultOrder: SortOrder.Ascending,
+    propertyName: 'ranking',
+  },
+  name: { name: 'Nombre', order: SortOrder.Ascending, propertyName: 'name' },
+  difficulty: {
+    name: 'Dificultad',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'difficulty',
+  },
+  players: {
+    name: 'Límite de Jugadores',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'maxPlayers',
+  },
+  playtime: {
+    name: 'Tiempo de Juego',
+    defaultOrder: SortOrder.Descending,
+    propertyName: 'maxPlaytime',
+  },
 }
 
-export function SortGamesByVotes(games) {
-  return games.sort((a, b) => (a.votes < b.votes ? 1 : -1))
-}
+// ORDENAR Juegos por una Propiedad
+export function SortGamesBy({ games, sortType = SortType.votes, sortOrder }) {
+  if (games?.length > 0) {
+    const sortedGames = [...games]
 
-export function SortGamesById(games) {
-  return games.sort((a, b) => (a.id < b.id ? 1 : -1))
-}
+    const sortByProperty = sortType.propertyName
+    sortOrder ??= sortType.order
+    // console.log(games)
 
-export function SortGamesByName(games) {
-  return games.sort((a, b) => (a.name < b.name ? 1 : -1))
-}
+    // POR DEFECTO
+    let sortFunc =
+      sortOrder === SortOrder.Ascending
+        ? (a, b) => a[sortByProperty] - b[sortByProperty] // ASC
+        : (a, b) => b[sortByProperty] - a[sortByProperty] // DESC
 
-export function SortGamesByDateAdded(games) {
-  return games.sort((a, b) => {
-    //console.log(Date.parse(a.lastModified) - Date.parse(b.lastModified))
-    return Date.parse(b.lastModified) - Date.parse(a.lastModified)
-  })
+    switch (typeof games[0][sortByProperty]) {
+      case 'string':
+        if (Date.parse(games[0][sortByProperty])) {
+          // DATE
+          sortFunc =
+            sortOrder === SortOrder.Ascending
+              ? (a, b) =>
+                  Date.parse(a[sortByProperty]) - Date.parse(b[sortByProperty]) // ASC
+              : (a, b) =>
+                  Date.parse(b[sortByProperty]) - Date.parse(a[sortByProperty]) // DESC
+        } else {
+          // TEXT
+          sortFunc =
+            sortOrder === SortOrder.Ascending
+              ? (a, b) => a[sortByProperty].localeCompare(b[sortByProperty]) // ASC
+              : (a, b) => b[sortByProperty].localeCompare(a[sortByProperty]) // DESC
+        }
+        break
+      case 'Date':
+        sortFunc =
+          sortOrder === SortOrder.Ascending
+            ? (a, b) =>
+                a[sortByProperty].getTime() - b[sortByProperty].getTime() // ASC
+            : (a, b) =>
+                b[sortByProperty].getTime() - a[sortByProperty].getTime() // DESC
+        break
+      case 'number':
+      case 'boolean':
+      default:
+        // Se queda con la funcion por defecto
+        break
+    }
+    return sortedGames.sort(sortFunc)
+  }
+
+  return games
 }
 
 export async function parseBggData(data) {
   return data
     .text()
     .then((data) => {
-      data = xml2Json(data)
+      data = xml2js(data)
 
-      // HAY DATOS?
-      if (!data) throw new Error('No se recibió respuesta')
-
-      // Hay un mensaje (supongo que de error)?
-      if ('message' in data) throw new RetryError(data.message)
-
-      // Existe la propiedad "items" en la data?
-      if (!('items' in data))
-        throw new Error('Respuesta no reconocida: ' + data)
-
-      // Los datos estan correctos
-      return data
+      return validateData(data)
     })
     .catch((err) => {
       throw err
     })
 }
 
-export function validateData(data) {
+function validateData(data) {
   // HAY DATOS?
   if (!data) throw new Error('No se recibió respuesta')
 
-  if ('message' in data) throw new RetryError()
+  // Hay un mensaje (supongo que de error)?
+  if ('message' in data) throw new RetryError(data.message)
 
-  // Existe la propiedad "totalitems" en la data
+  // Existe la propiedad "items" en la data?
   if (!('items' in data)) throw new Error('Respuesta no reconocida: ' + data)
 
+  // Los datos estan correctos
   return data
 }
 
@@ -99,7 +163,7 @@ export function validateData(data) {
 const emptyMockData = async function () {
   return fetch(MOCK_DATA_URL + 'BGGmockNoResults.xml')
     .then((res) => res.text())
-    .then((xml) => xml2Json(xml))
+    .then((xml) => xml2js(xml))
     .catch((e) => () => {
       throw e
     })
@@ -109,7 +173,7 @@ const emptyMockData = async function () {
 const processingMessageMock = async function () {
   return fetch(MOCK_DATA_URL + 'BGGmockProcessing.xml')
     .then((res) => res.text())
-    .then((xml) => xml2Json(xml))
+    .then((xml) => xml2js(xml))
     .catch((e) => () => {
       throw e
     })

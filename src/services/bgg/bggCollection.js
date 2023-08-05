@@ -3,7 +3,8 @@ import {
   ItemType,
   ColType,
   parseBggData,
-  SortGamesByDateAdded,
+  SortGamesBy,
+  SortOrder,
 } from './bgg'
 import { GetBoardGames, GetBoardGamesMock } from './bggThing'
 import { retry } from '../../utils/retry'
@@ -22,6 +23,7 @@ export async function GetCollection({
   subtype = ItemType.BoardGame,
   excludeSubtype = ItemType.Expansion,
   colFilter = ColType.Owned,
+  stats = false,
 }) {
   if (!username || username.length === 0) return null
 
@@ -29,6 +31,9 @@ export async function GetCollection({
 
   // Si se le añade un filtro de tipo de Coleccion, devuelve unicamente esa coleccion
   if (colFilter.length > 0) args += `&${colFilter}=1`
+
+  // Stats adicionales (ratings, rankings,...)
+  if (stats) args += '&stats=1'
 
   // Se reintenta la peticion cada segundo, hasta un maximo, si llega un RetryError
   return retry(
@@ -54,16 +59,29 @@ export async function GetCollectionDetailed({
   excludeSubtype = ItemType.Expansion,
   colFilter = ColType.Owned,
 }) {
-  return GetCollectionIds({
+  return GetCollection({
     username,
     subtype,
     excludeSubtype,
     colFilter,
-  }).then((gameIds) =>
-    GetBoardGames({
-      gameIds,
+    stats: true,
+  }).then((col) => {
+    const ids = col.map(({ id }) => id)
+    // Datos extra que se añaden al resultado de la busqueda
+    const extraData = col.map(
+      ({ dateAdded, ranking, subRankings, avgRating, numOwned }) => ({
+        dateAdded,
+        ranking,
+        subRankings,
+        avgRating,
+        numOwned,
+      })
+    )
+    return GetBoardGames({
+      gameIds: ids,
+      otherData: extraData,
     })
-  )
+  })
 }
 
 // Array con IDs de los juegos en la coleccion
@@ -87,18 +105,49 @@ function processData(data) {
     ? data.items.item
     : [data.items.item]
 
-  return SortGamesByDateAdded(
-    boardGames?.map((item) => ({
-      id: item?._objectid,
-      name: item?.name.toString(),
-      year: item?.yearpublished,
-      description: item?.description,
-      subtype: item?._subtype,
-      thumbnailUrl: item?.thumbnail,
-      imageUrl: item?.image,
-      lastModified: item?.status?._lastmodified,
-    }))
-  )
+  // Hago que los rankings sea si o si un Array
+  boardGames.map((item) => {
+    const mappedItem = item
+    if (
+      mappedItem?.stats?.rating?.ranks?.rank &&
+      !Array.isArray(mappedItem?.stats?.rating?.ranks?.rank)
+    )
+      mappedItem.stats.rating.ranks.rank = [mappedItem.stats.rating.ranks.rank]
+    return mappedItem
+  })
+
+  const mappedGames = boardGames?.map((item) => ({
+    id: item?._objectid,
+    name: item?.name.toString(),
+    year: item?.yearpublished,
+    description: item?.description,
+    subtype: item?._subtype,
+    thumbnailUrl: item?.thumbnail,
+    imageUrl: item?.image,
+    dateAdded: item?.status?._lastmodified,
+    minPlayers: parseInt(item?.stats?._minplayers),
+    maxPlayers: parseInt(item?.stats?._maxplayers),
+    minPlaytime: parseInt(item?.stats?._minplaytime),
+    maxPlaytime: parseInt(item?.stats?._maxplaytime),
+    avgPlaytime: parseInt(item?.stats?._playingtime),
+    numOwned: parseInt(item?.stats?._numowned),
+    avgRating: parseFloat(item?.stats?.rating?.average?._value),
+    votes: parseInt(item?.stats?.rating?.usersrated?._value),
+    ranking: parseInt(item?.stats?.rating?.ranks?.rank[0]?._value),
+    subRankings: item?.stats?.rating?.ranks?.rank
+      .map((rank) => ({
+        category: rank._friendlyname,
+        categoryId: rank._id,
+        ranking: parseInt(rank._value),
+      }))
+      .slice(1),
+  }))
+  return mappedGames
+  // return SortGamesBy({
+  //   games: mappedGames,
+  //   sortBy: 'lastModified',
+  //   order: SortOrder.Descending,
+  // })
 }
 
 // ========================== MOCK ==========================
@@ -124,6 +173,4 @@ export async function GetCollectionMock() {
 
 export async function GetCollectionDetailedMock() {
   return GetCollectionMock()
-    .then((games) => games.map((game) => game.id))
-    .then((gameIds) => GetBoardGamesMock({ gameIds }))
 }
