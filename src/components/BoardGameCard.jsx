@@ -80,7 +80,8 @@ function Players({ minPlayers, maxPlayers }) {
         {/* Tiene MÍNIMO y MÁXIMO de Jugadores */}
         {!isNaN(minPlayers) && !isNaN(maxPlayers) && (
           <span>
-            {minPlayers} - {maxPlayers}
+            {minPlayers}
+            {maxPlayers !== minPlayers ? `- ${maxPlayers}` : ''}
           </span>
         )}
         {/* Solo tiene MÍNIMO de Jugadores */}
