@@ -70,6 +70,7 @@ main > .oborus-logo {
   padding: 0 5px;
   background-color: var(--background-alt);
   border-radius: 50px;
+  text-align: center;
 }
 
 .collection-header {
@@ -84,6 +85,28 @@ main > .oborus-logo {
   text-align: center;
 }
 
+/* Sort by Select */
+.sort {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: start;
+}
+.sort-select {
+  border: 3px outset var(--background);
+  background-color: var(--background);
+}
+.sort button {
+  padding: 5px;
+  border-radius: 40px;
+  background-color: transparent;
+  margin: 0;
+}
+.sort button:hover {
+  background-color: var(--background);
+}
+
+/* Sort by Radio Buttons */
 .sort-buttons {
   /* display: flex;
   flex-direction: row;
