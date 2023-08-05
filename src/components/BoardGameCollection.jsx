@@ -7,16 +7,22 @@ import { SortType, SortOrder, SortGamesBy } from '../services/bgg/bgg'
 import { BoardGameCard } from './BoardGameCard'
 import { DataList } from './DataList'
 
-export function BoardGameCollection({ username = 'oborus', collection = [] }) {
-  const [sortType, setSortType] = useState(SortType.name)
-  const [sortOrder, setSortOrder] = useState(SortOrder.Descending)
+export function BoardGameCollection({
+  username = 'oborus',
+  collection = [],
+  initialSortType = SortType.name,
+}) {
+  const [sortType, setSortType] = useState(initialSortType)
+  const [sortOrder, setSortOrder] = useState(initialSortType?.defaultOrder)
 
   useEffect(() => {
     setSortOrder(sortType?.defaultOrder)
   }, [sortType])
 
   const handleSort = (e) => {
-    setSortType(SortType[e.target.value])
+    const newSort = SortType[e.target.value]
+    setSortType(newSort)
+    setSortOrder(newSort?.defaultOrder)
     // e.target.checked = true
   }
 
@@ -53,6 +59,7 @@ export function BoardGameCollection({ username = 'oborus', collection = [] }) {
 BoardGameCollection.propTypes = {
   username: PropTypes.string,
   collection: PropTypes.array,
+  initialSortType: PropTypes.object,
 }
 
 function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
