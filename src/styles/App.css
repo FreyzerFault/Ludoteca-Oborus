@@ -16,6 +16,8 @@ main > .oborus-logo {
 
 /* BUSQUEDA */
 .search-area {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -400,10 +402,10 @@ main > .oborus-logo {
 }
 
 .spinner-container {
-  align-self: center;
   position: absolute;
-  top: 40%;
-  left: 40%;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
 
   z-index: 1;
 }

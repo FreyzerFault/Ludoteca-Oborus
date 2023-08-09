@@ -38,10 +38,10 @@ export function SearchBar({
         />
 
         <ErrorMessage error={error} />
-      </section>
 
-      <section className='spinner-container'>
-        <LoadingSpinner loading={loading} />
+        <section className='spinner-container'>
+          <LoadingSpinner loading={loading} />
+        </section>
       </section>
     </>
   )
