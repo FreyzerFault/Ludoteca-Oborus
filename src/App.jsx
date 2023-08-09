@@ -2,6 +2,7 @@ import './styles/App.css'
 
 import { useState } from 'react'
 import { useCollection } from './hooks/useCollection'
+import { useManuales } from './hooks/useManuales'
 import { ColType, postPlay } from './services/bgg/bgg'
 
 // Componentes React

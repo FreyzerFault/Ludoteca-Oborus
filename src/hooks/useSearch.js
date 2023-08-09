@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 // SERVICES
 import { GetBoardGames, GetBoardGamesMock } from '../services/bgg/bggThing'
 import { Search, SearchMock } from '../services/bgg/bggSearch'
-import { SortGamesBy, SortOrder } from '../services/bgg/bgg'
+import { SortGamesBy } from '../utils/sort'
 
 // Gestiona la busqueda de un termino
 // Pasale la funcion que busca para que actualice los resultados
@@ -30,14 +30,8 @@ export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
       .then((data) =>
         getBoardGamesFunc({ gameIds: data.map((item) => item.id) })
       )
+      .then((data) => SortGamesBy({ data }))
       .then((data) => {
-        // Los ordeno por votos
-        data = SortGamesBy({
-          games: data,
-          sortBy: 'votes',
-          order: SortOrder.Descending,
-        })
-
         // Se acota al max de resultados
         data = data.slice(0, maxResults)
 

@@ -14,7 +14,7 @@ export function useCollection({
   colFilter = ColType.Owned,
   detailed = false,
 }) {
-  const [collection, setCollection] = useState([])
+  const [collection, setCollection] = useState(null)
 
   useEffect(() => {
     const getCollectionFunction = mock

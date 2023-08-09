@@ -65,6 +65,8 @@ main > .oborus-logo {
 
 /* COLECCION */
 .boardgame-collection {
+  position: relative;
+
   width: 100%;
   margin-top: 50px;
   padding: 0 5px;
@@ -87,6 +89,7 @@ main > .oborus-logo {
 
 /* Sort by Select */
 .sort {
+  margin-left: 10px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -270,17 +273,17 @@ main > .oborus-logo {
 
 .boardgame-card .difficulty-icon {
   position: absolute;
-  right: -10.5px;
-  top: 10px;
+  right: -15px;
+  bottom: 0px;
   z-index: 1;
 
   width: 50px;
   font-size: 1.5em;
 
-  background-color: #008c99aa;
+  background-color: #00d2e6;
   border-radius: 100% 100% 20% 20%;
   border: 1px double #555;
-  border-width: 1px 0 0 3px;
+  border-width: 3px 3px 0 0px;
   /* box-shadow: -2px -2px 2px 0 #111; */
 
   padding: 0;
@@ -307,10 +310,6 @@ main > .oborus-logo {
     gap: 10px;
   }
 
-  .boardgame-card .thumbnail {
-    /* width: 100px; */
-  }
-
   .boardgame-card .players,
   .boardgame-card .playtime {
     scale: 80%;
@@ -321,21 +320,23 @@ main > .oborus-logo {
 @media only screen and (min-width: 300px) {
   .search-results {
     display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
   .boardgame-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: stretch;
   }
 
   .boardgame-card .clickable {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: stretch;
     gap: 10px;
     width: fit-content;
     margin: 10px 0;
@@ -347,10 +348,7 @@ main > .oborus-logo {
   }
   .boardgame-card .thumbnail-container {
     margin: 0px 20px;
-  }
-  .boardgame-card .thumbnail {
-    height: 150px;
-    max-width: 170px;
+    flex-grow: 1;
   }
 
   .boardgame-card.owned {
@@ -359,13 +357,9 @@ main > .oborus-logo {
   }
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 580px) {
   .search-results {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  }
-
-  .boardgame-card .thumbnail {
-    height: 130px;
   }
 }
 
@@ -387,6 +381,8 @@ main > .oborus-logo {
   align-self: center;
   position: absolute;
   top: 40%;
+  left: 40%;
+
   z-index: 1;
 }
 

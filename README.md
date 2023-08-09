@@ -88,6 +88,7 @@ TODO:
 ✅ Muestra primero la colección Owned
 
 - Usar la [Libreria BGG JS API](https://www.npmjs.com/package/@code-bucket/board-game-geek)
+  (No es compatible si uso Vite. Da un error de sax.js cuando se usa)
 
 - Haz que la búsqueda se haga automáticamente al escribir.
 - Evita que se haga la búsqueda continuamente al escribir (debounce)

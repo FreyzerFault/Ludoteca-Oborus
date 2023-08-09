@@ -1,11 +1,5 @@
-import {
-  URL_BGG_API,
-  ItemType,
-  ColType,
-  parseBggData,
-  SortGamesBy,
-  SortOrder,
-} from './bgg'
+import { URL_BGG_API, ItemType, ColType, parseBggData } from './bgg'
+import { SortGamesBy, SortOrder } from '../../utils/sort'
 import { GetBoardGames, GetBoardGamesMock } from './bggThing'
 import { retry } from '../../utils/retry'
 

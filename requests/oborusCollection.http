@@ -1,0 +1,10 @@
+@username = oborus
+@gameid = 63706
+
+GET https://boardgamegeek.com/xmlapi2/collection
+?username={{username}}
+&stats=1
+&id={{gameid}}
+&own=1
+
+###

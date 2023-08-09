@@ -1,4 +1,5 @@
-import { URL_BGG_API, parseBggData, SortGamesBy, SortOrder } from './bgg'
+import { URL_BGG_API, parseBggData } from './bgg'
+import { SortByProperty, SortableProperties } from '../../utils/sort'
 import { retry } from '../../utils/retry'
 
 import { MOCK_DATA_URL } from '../localData'
@@ -124,16 +125,15 @@ function processData(data) {
 }
 
 export async function GetBoardGamesSortByVotes({ gameIds = [] }) {
-  return SortGamesBy({
-    games: GetBoardGames({ gameIds }),
-    sortBy: 'votes',
-    order: SortOrder.Descending,
+  return SortByProperty({
+    data: GetBoardGames({ gameIds }),
+    sortableProp: SortableProperties.votes,
   })
 }
 
 // ========================== MOCK ==========================
 
-export async function GetBoardGamesMock() {
+export async function GetBoardGamesMock({ gameIds = [], otherData = [] }) {
   return delay(300).then(() =>
     retry(
       () =>

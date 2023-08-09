@@ -4,12 +4,12 @@ import PropTypes from 'prop-types'
 // REQUISITOS
 // Cada elemento DEBE tener una propiedad [id]!!!!
 // El Component debe tener un argumento [data]
-export function DataList({ data = [], ComponentTemplate, className = '' }) {
+export function DataList({ data, ComponentTemplate, className = '' }) {
   if (data === null) return
 
   return (
     <section className={className}>
-      {typeof data === 'object' && data?.length > 0 ? (
+      {Array.isArray(data) && data?.length > 0 ? (
         data.map((child) => {
           return <ComponentTemplate key={child.id} data={child} />
         })

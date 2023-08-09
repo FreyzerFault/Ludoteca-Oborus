@@ -36,6 +36,9 @@ export function BoardGameCard({ data }) {
           maxPlaytime={data.maxPlaytime}
         />
 
+        {/* MANUAL */}
+        {/* <Manual title={data.name} /> */}
+
         {/* Imagen del Juego */}
         <div className='thumbnail-container'>
           <img
@@ -143,10 +146,10 @@ function Difficulty({ difficulty }) {
   if (isNaN(difficulty)) return null
 
   const difficulties = [
-    { name: 'easy', max: 2, emoji: '😀' },
+    { name: 'easy', max: 1.5, emoji: '😀' },
     { name: 'easy-medium', max: 2, emoji: '🫡' },
     { name: 'medium', max: 3, emoji: '🧐' },
-    { name: 'medium-hard', max: 4, emoji: '🤯' },
+    { name: 'medium-hard', max: 3.5, emoji: '🤯' },
     { name: 'hard', max: 5, emoji: '😵' },
   ]
   let difficultyName = ''
@@ -172,3 +175,24 @@ function Difficulty({ difficulty }) {
 Difficulty.propTypes = {
   difficulty: PropTypes.any,
 }
+
+// function Manual({
+//   manuales = [{ title: 'titulo', url: 'url' }],
+//   title = 'Manual',
+// }) {
+//   const manual = manuales.find(
+//     ({ _title }) => _title.toLowerCase() === title.toLowerCase()
+//   )
+//   return (
+//     <a className='boardgame-manual' href={manual.url}>
+//       {manual.title}
+//     </a>
+//   )
+// }
+
+// Manual.propTypes = {
+//   manuales: PropTypes.arrayOf(
+//     PropTypes.shape({ title: PropTypes.string, url: PropTypes.string })
+//   ),
+//   title: PropTypes.string,
+// }

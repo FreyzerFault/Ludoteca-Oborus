@@ -1,57 +1,73 @@
 import PropTypes from 'prop-types'
 import 'boxicons'
-import { useEffect, useState } from 'react'
 
-import { SortType, SortOrder, SortGamesBy } from '../services/bgg/bgg'
+import { SortOrder } from '../utils/sort'
 
 import { BoardGameCard } from './BoardGameCard'
 import { DataList } from './DataList'
+import { useSort } from '../hooks/useSort'
+import { SortableProperties, SortableProperty } from '../utils/sort'
+import { LoadingSpinner } from './icons/LoadingSpinner'
 
 export function BoardGameCollection({
   username = 'oborus',
-  collection = [],
-  initialSortType = SortType.name,
+  collection,
+  initialSortableProp = SortableProperties.dateAdded,
 }) {
-  const [sortType, setSortType] = useState(initialSortType)
-  const [sortOrder, setSortOrder] = useState(initialSortType?.defaultOrder)
-
-  useEffect(() => {
-    setSortOrder(sortType?.defaultOrder)
-  }, [sortType])
+  const [
+    sortedData,
+    sortableProp,
+    sortOrder,
+    loading,
+    setSortableProp,
+    setSortOrder,
+    setInverseOrder,
+  ] = useSort({
+    data: collection,
+    initialSortableProp,
+  })
 
   const handleSort = (e) => {
-    const newSort = SortType[e.target.value]
-    setSortType(newSort)
-    setSortOrder(newSort?.defaultOrder)
+    const newSort = SortableProperties[e.target.value]
+    setSortableProp(newSort)
+    setSortOrder(newSort.defaultOrder)
     // e.target.checked = true
   }
 
   const handleOrder = (e) => {
-    setSortOrder(
-      sortOrder === SortOrder.Descending
-        ? SortOrder.Ascending
-        : SortOrder.Descending
-    )
+    setInverseOrder()
   }
 
   return (
     <div className='boardgame-collection' data-testid='collection-container'>
-      <section className='collection-header'>
-        <h1 className='collection-title'>
-          {collection.length} Juegos de {username}
-        </h1>
-        <SelectSort
-          handleSort={handleSort}
-          handleOrder={handleOrder}
-          sortChecked={sortType}
-          sortOrder={sortOrder}
+      {collection !== null ? (
+        <section className='collection-header'>
+          <h1 className='collection-title'>
+            {collection.length} Juegos de {username}
+          </h1>
+          <SelectSort
+            handleSort={handleSort}
+            handleOrder={handleOrder}
+            sortChecked={sortableProp}
+            sortOrder={sortOrder}
+          />
+        </section>
+      ) : (
+        <section className='spinner-container'>
+          <LoadingSpinner loading={true} />
+        </section>
+      )}
+      {collection !== null && loading ? (
+        <section className='spinner-container'>
+          <LoadingSpinner loading={true} />
+        </section>
+      ) : (
+        <DataList
+          className='search-results'
+          ComponentTemplate={BoardGameCard}
+          data={sortedData}
         />
-      </section>
-      <DataList
-        className='search-results'
-        ComponentTemplate={BoardGameCard}
-        data={SortGamesBy({ games: collection, sortType, sortOrder })}
-      />
+      )}
     </div>
   )
 }
@@ -59,18 +75,18 @@ export function BoardGameCollection({
 BoardGameCollection.propTypes = {
   username: PropTypes.string,
   collection: PropTypes.array,
-  initialSortType: PropTypes.object,
+  initialSortableProp: PropTypes.instanceOf(SortableProperty),
 }
 
 function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
   return (
     <section className='sort'>
       <button onClick={handleOrder}>
-        <box-icon
-          name={sortOrder == SortOrder.Ascending ? 'sort-down' : 'sort-up'}
-          color='white'
-          size='35px'
-        ></box-icon>
+        {sortOrder === SortOrder.Ascending ? (
+          <box-icon name={'sort-up'} color='white' size='35px'></box-icon>
+        ) : (
+          <box-icon name={'sort-down'} color='white' size='35px'></box-icon>
+        )}
       </button>
       <select
         name='sort'
@@ -78,13 +94,9 @@ function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
         defaultValue={sortChecked}
         onChange={handleSort}
       >
-        {Object.keys(SortType).map((sortKey) => (
-          <option
-            className='sort-option'
-            value={sortKey}
-            key={SortType[sortKey].name}
-          >
-            {SortType[sortKey].name}
+        {Object.keys(SortableProperties).map((sortableKey) => (
+          <option className='sort-option' value={sortableKey} key={sortableKey}>
+            {SortableProperties[sortableKey].name}
           </option>
         ))}
       </select>
@@ -113,6 +125,6 @@ function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
 SelectSort.propTypes = {
   handleSort: PropTypes.func,
   handleOrder: PropTypes.func,
-  sortChecked: PropTypes.any,
+  sortChecked: PropTypes.instanceOf(SortableProperty),
   sortOrder: PropTypes.number,
 }
