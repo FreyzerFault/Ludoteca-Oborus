@@ -165,10 +165,7 @@ function Difficulty({ difficulty }) {
     // <span src={`/Dificultad/${difficultyName}.svg`} className='difficulty-icon'>
     //   {difficulties.find(({ name, max }) => difficulty < max).emoji}
     // </span>
-    <img
-      src={`/Dificultad/${difficultyName}.svg`}
-      className='difficulty-icon'
-    />
+    <img src={`/${difficultyName}.svg`} className='difficulty-icon' />
   )
 }
 

@@ -94,25 +94,26 @@ main > .oborus-logo {
 
 .collection-header {
   display: flex;
-  flex-direction: row;
-  justify-content: start;
+  flex-direction: column;
   align-items: stretch;
+  justify-content: center;
+  gap: 10px;
 }
 
 .collection-title {
   flex-grow: 1;
   text-align: center;
+  margin: 0;
 }
 
 /* Sort by Select */
 .sort {
-  top: 20px;
-
-  margin-left: 10px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
+
+  margin-left: 10px;
 }
 .sort-select {
   border: 3px outset var(--background);
@@ -128,63 +129,18 @@ main > .oborus-logo {
   background-color: var(--background);
 }
 
-/* Sort by Radio Buttons */
-.sort-buttons {
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center; */
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 5px;
-
-  font-weight: bold;
-  font-size: 1em;
-}
-
-.sort-buttons .sort-btn {
-  /* flex-grow: 1; */
-  text-align: center;
-  padding: 0 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  cursor: pointer;
-
-  border: 2px outset var(--background-alt);
-  background-color: var(--background);
-  border-radius: 3px;
-  color: var(#555);
-
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-}
-
-.sort-buttons .sort-btn label {
-  cursor: pointer;
-}
-
-.sort-buttons .sort-btn:hover {
-  color: var(--text-bright);
-  background-color: var(--background-alt);
-}
-.sort-buttons .sort-btn label:before {
-  content: '';
-  background: none;
-  border: 2px solid var(--text-bright);
-  border-radius: 100%;
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 5px;
-}
-.sort-buttons .sort-btn input {
-  display: none;
-}
-.sort-buttons .sort-btn input:checked ~ label:before {
-  background-color: var(--text-bright);
+/* Header en Pantalla ANCHA */
+@media only screen and (min-width: 900px) {
+  .collection-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+  }
+  .collection-title {
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+  }
 }
 
 /* CARD */
@@ -379,11 +335,6 @@ main > .oborus-logo {
 @media only screen and (max-width: 580px) {
   .search-results {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  }
-
-  .collection-header {
-    flex-direction: column;
-    align-items: center;
   }
 }
 
