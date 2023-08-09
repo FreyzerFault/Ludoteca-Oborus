@@ -3,21 +3,23 @@
  */
 
 :root {
+  --main-color: #00eaff;
+  --secondary-color: #008c99;
   --background-body: #202b38;
   --background: #161f27;
   --background-alt: #1a242f;
-  --selection: #00d2e6;
+  --selection: var(--main-color);
   --text-main: #dbdbdb;
   --text-bright: #fff;
   --text-muted: #a9b1ba;
-  --links: #41adff;
+  --links: var(--main-color);
   --focus: #0096bfab;
   --border: #526980;
   --code: #ffbe85;
   --animation-duration: 0.1s;
-  --button-base: #0c151c;
-  --button-hover: #040a0f;
-  --scrollbar-thumb: var(--button-hover);
+  --button-base: var(--secondary-color);
+  --button-hover: var(--main-color);
+  --scrollbar-thumb: #111;
   --scrollbar-thumb-hover: rgb(0, 0, 0);
   --form-placeholder: #a9a9a9;
   --form-text: #fff;

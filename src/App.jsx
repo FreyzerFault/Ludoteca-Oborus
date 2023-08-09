@@ -39,7 +39,7 @@ function App() {
 
       <OborusLogo />
       <h1> </h1>
-      <h1>LUDOTECA OBORUS</h1>
+      <h1 className='title'>LUDOTECA OBORUS</h1>
 
       <SearchBar
         maxResults={24}

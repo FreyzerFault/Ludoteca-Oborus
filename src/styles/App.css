@@ -14,6 +14,39 @@ main > .oborus-logo {
   z-index: -1;
 }
 
+/* TITULO de la PAGINA */
+.title {
+  position: relative;
+  text-align: center;
+  font-size: 4em;
+  font-weight: bold;
+}
+.title::before {
+  position: absolute;
+  content: 'LUDOTECA OBORUS';
+  background: linear-gradient(
+    0deg,
+    #0066ff,
+    var(--main-color),
+    var(--main-color)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: pulseOpacity 9s infinite;
+}
+
+@keyframes pulseOpacity {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 /* BUSQUEDA */
 .search-area {
   position: relative;
@@ -56,7 +89,6 @@ main > .oborus-logo {
 
   text-align: center;
   line-height: 1em;
-  background-color: #008c99;
 }
 .search-bar > .search-submit {
   margin-left: 5px;
@@ -197,7 +229,7 @@ main > .oborus-logo {
   font-weight: bold;
   white-space: nowrap;
 
-  background-color: #008c99cc;
+  background-color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
   box-shadow: 0 0 5px #111;
   padding: 2px 4px;
   border-radius: 10px;
@@ -240,10 +272,10 @@ main > .oborus-logo {
 }
 
 .boardgame-card.owned .thumbnail {
-  border: 3px solid #00d2e6;
+  border: 3px solid var(--main-color);
 }
 .boardgame-card.owned .name {
-  color: #00d2e6;
+  color: var(--main-color);
 }
 
 .boardgame-card .difficulty-icon {
@@ -255,7 +287,7 @@ main > .oborus-logo {
   width: 50px;
   font-size: 1.5em;
 
-  background-color: #00d2e6;
+  background-color: var(--main-color);
   border-radius: 100% 100% 20% 20%;
   border: 1px double #555;
   border-width: 3px 3px 0 0px;

@@ -69,7 +69,6 @@ BoardGameCollection.propTypes = {
 function BoardGameCollectionView({
   collection_id,
   collectionName,
-  // TODO permitir filtrar por expansiones o no
   // eslint-disable-next-line no-unused-vars
   showExpansions = true,
   mock = true,
