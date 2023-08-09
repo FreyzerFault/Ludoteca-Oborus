@@ -83,9 +83,9 @@ function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
     <section className='sort'>
       <button onClick={handleOrder}>
         {sortOrder === SortOrder.Ascending ? (
-          <box-icon name={'sort-up'} color='white' size='35px'></box-icon>
-        ) : (
           <box-icon name={'sort-down'} color='white' size='35px'></box-icon>
+        ) : (
+          <box-icon name={'sort-up'} color='white' size='35px'></box-icon>
         )}
       </button>
       <select
