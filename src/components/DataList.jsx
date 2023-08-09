@@ -8,18 +8,20 @@ export function DataList({ data, ComponentTemplate, className = '' }) {
   if (data === null) return
 
   return (
-    <section className={className}>
+    <>
       {Array.isArray(data) && data?.length > 0 ? (
-        data.map((child) => {
-          return <ComponentTemplate key={child.id} data={child} />
-        })
+        <section className={className}>
+          {data.map((child) => {
+            return <ComponentTemplate key={child.id} data={child} />
+          })}
+        </section>
       ) : Array.isArray(data) && data.length === 0 ? (
         // Cuando la lista esté vacía
-        <p>No hay resultados...</p>
+        <p className='no-results'>No hay resultados...</p>
       ) : (
         <></>
       )}
-    </section>
+    </>
   )
 }
 

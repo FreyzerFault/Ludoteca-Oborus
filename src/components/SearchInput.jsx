@@ -25,6 +25,10 @@ export function SearchInput({ searchAsTyping = false, onSearch }) {
     setSearchValue(searchInputValue)
   }
 
+  const handleReset = (e) => {
+    setSearchValue('')
+  }
+
   // Cambio en el input de Busqueda => Actualiza el estado asociado
   const handleSearchInputChange = (event) => {
     if (!searchAsTyping) return
@@ -41,8 +45,13 @@ export function SearchInput({ searchAsTyping = false, onSearch }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} onReset={handleReset}>
       <div className='search-bar'>
+        {searchValue && (
+          <button type='reset' className='search-cancel'>
+            <box-icon name='x' color='#fff' size='30px'></box-icon>
+          </button>
+        )}
         <input
           value={searchAsTyping ? searchValue : undefined}
           onChange={handleSearchInputChange}
@@ -51,7 +60,7 @@ export function SearchInput({ searchAsTyping = false, onSearch }) {
           placeholder='Catan, Virus, Monopoly, ...'
         />
 
-        <button type='submit'>
+        <button type='submit' className='search-submit'>
           <box-icon name='search-alt-2' color='#fff' size='25px'></box-icon>
         </button>
       </div>

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 // SERVICES
 import { GetBoardGames, GetBoardGamesMock } from '../services/bgg/bggThing'
 import { Search, SearchMock } from '../services/bgg/bggSearch'
-import { SortGamesBy } from '../utils/sort'
+import { NoDataError, SortGamesBy } from '../utils/sort'
 
 // Gestiona la busqueda de un termino
 // Pasale la funcion que busca para que actualice los resultados
@@ -43,7 +43,8 @@ export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
       .catch((e) => {
         setError(e)
         console.error(e)
-        setQueryData(null)
+        if (e instanceof NoDataError) setQueryData([])
+        else setQueryData(null)
       })
       .finally(() => {
         setLoading(false)

@@ -29,9 +29,7 @@ export async function Search({
     () =>
       fetch(URL_BGG_API_SEARCH + args)
         .then((data) => parseBggData(data))
-        .then((data) => {
-          return processData(data)
-        })
+        .then((data) => processData(data))
         .catch((e) => {
           throw e
         }),
@@ -67,7 +65,7 @@ function RemoveDuplicates(boardGames) {
   const filteredGames = []
 
   boardGames.forEach((item) => {
-    if (item.name._type !== 'primary') return
+    if (item?.name?._type !== 'primary') return
 
     // Si hay otro con el mismo ID y nombre Primary se filtra por tipo
     const collision = filteredGames.find((other) => other._id === item._id)

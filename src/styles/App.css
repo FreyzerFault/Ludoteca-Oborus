@@ -20,11 +20,14 @@ main > .oborus-logo {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  text-align: center;
+
   border: 2px solid #111;
   border-radius: 8px;
   background-color: #111;
   box-shadow: 0px 5px 10px 0px #111;
   border: 2px solid dimgray;
+
   padding: 5px;
   max-width: 1000px;
   width: 90%;
@@ -47,12 +50,18 @@ main > .oborus-logo {
 
 .search-bar > button {
   margin: 0px;
-  margin-left: 10px;
   padding: 0px 8px;
-  display: flex;
-  vertical-align: middle;
-  align-items: center;
-  background-color: #1e2952;
+
+  text-align: center;
+  line-height: 1em;
+  background-color: #008c99;
+}
+.search-bar > .search-submit {
+  margin-left: 5px;
+}
+.search-bar > .search-cancel {
+  margin-right: 5px;
+  padding: 0px 5px;
 }
 
 .search-icon {
