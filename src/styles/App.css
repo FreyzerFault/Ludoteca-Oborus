@@ -75,18 +75,24 @@ main > .oborus-logo {
 /* COLECCION */
 .boardgame-collection {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  text-align: center;
 
   width: 100%;
-  margin-top: 50px;
-  padding: 0 5px;
-  background-color: var(--background-alt);
+  margin-top: 30px;
+  gap: 10px;
+
+  /* background-color: var(--background-alt); */
   border-radius: 50px;
-  text-align: center;
 }
 
 .collection-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: start;
   align-items: stretch;
 }
@@ -98,6 +104,8 @@ main > .oborus-logo {
 
 /* Sort by Select */
 .sort {
+  top: 20px;
+
   margin-left: 10px;
   display: flex;
   flex-direction: row-reverse;
@@ -369,6 +377,11 @@ main > .oborus-logo {
 @media only screen and (max-width: 580px) {
   .search-results {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+
+  .collection-header {
+    flex-direction: column;
+    align-items: center;
   }
 }
 
