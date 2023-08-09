@@ -13,7 +13,9 @@ export function useManuales() {
     fetchPage(URL_MANUALES)
       .then((document) => console.log(document))
       .catch((err) => console.log(err))
-    // setManuales()
+
+    // Asignar Manuales
+    setManuales([])
   }, [])
 
   return { manuales }

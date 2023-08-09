@@ -14,15 +14,15 @@ export function BoardGameCollection({
   collection,
   initialSortableProp = SortableProperties.dateAdded,
 }) {
-  const [
+  const {
     sortedData,
     sortableProp,
     sortOrder,
-    loading,
+
     setSortableProp,
     setSortOrder,
     setInverseOrder,
-  ] = useSort({
+  } = useSort({
     data: collection,
     initialSortableProp,
   })
@@ -31,7 +31,6 @@ export function BoardGameCollection({
     const newSort = SortableProperties[e.target.value]
     setSortableProp(newSort)
     setSortOrder(newSort.defaultOrder)
-    // e.target.checked = true
   }
 
   const handleOrder = (e) => {
@@ -57,11 +56,7 @@ export function BoardGameCollection({
           <LoadingSpinner loading={true} />
         </section>
       )}
-      {collection !== null && loading ? (
-        <section className='spinner-container'>
-          <LoadingSpinner loading={true} />
-        </section>
-      ) : (
+      {collection && (
         <DataList
           className='search-results'
           ComponentTemplate={BoardGameCard}
@@ -101,24 +96,6 @@ function SelectSort({ handleSort, handleOrder, sortChecked, sortOrder }) {
         ))}
       </select>
     </section>
-    //   <section className='sort-buttons'>
-    //   {Object.keys(SortType).map((sortKey) => (
-    //     <div
-    //       className='sort-btn'
-    //       key={SortType[sortKey].name}
-    //       onClick={() => setSortFunc(SortType[sortKey])}
-    //     >
-    //       <input
-    //         type='radio'
-    //         name='sort'
-    //         value={sortKey}
-    //         onChange={setSortFunc}
-    //         checked={SortType[sortKey].name === sortChecked.name}
-    //       />
-    //       <label>{SortType[sortKey].name}</label>
-    //     </div>
-    //   ))}
-    // </section>
   )
 }
 
@@ -126,5 +103,5 @@ SelectSort.propTypes = {
   handleSort: PropTypes.func,
   handleOrder: PropTypes.func,
   sortChecked: PropTypes.instanceOf(SortableProperty),
-  sortOrder: PropTypes.number,
+  sortOrder: PropTypes.oneOf(Object.values(SortOrder)),
 }

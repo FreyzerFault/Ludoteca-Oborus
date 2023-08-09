@@ -1,7 +1,4 @@
 import PropTypes from 'prop-types'
-
-export class NoDataError extends Error {}
-
 // Orden de Ordenado [Ascendente o Descendente]
 export const SortOrder = {
   Ascending: 1,
@@ -59,20 +56,6 @@ export class SortableProperty {
   }
 }
 
-export async function SortByProperty({ data, sortableProp, sortOrder }) {
-  return new Promise((resolve, reject) => {
-    if (!data || data?.length === 0)
-      reject(new NoDataError('No Data to be sort'))
-    resolve(sortableProp.sort(data, sortOrder))
-  })
-}
-
-SortByProperty.propTypes = {
-  data: PropTypes.array.isRequired,
-  sortableProp: PropTypes.instanceOf(SortableProperty).isRequired,
-  sortOrder: PropTypes.oneOf([SortOrder.Ascending, SortOrder.Descending]),
-}
-
 export const SortableProperties = {
   dateAdded: new SortableProperty(
     'Fecha Adquisición',
@@ -100,21 +83,19 @@ export const SortableProperties = {
   ),
 }
 
-// ORDENAR Juegos por una Propiedad
-export async function SortGamesBy({
-  data,
-  sortableProp = SortableProperties.votes,
-  sortOrder,
-}) {
-  return new Promise((resolve, reject) => {
-    if (!data || data?.length === 0)
-      reject(new NoDataError('No Data to be sort'))
-    resolve(SortByProperty({ data, sortableProp, sortOrder }))
+export function SortByProperty({ data, sortableProp, sortOrder }) {
+  if (!data || data?.length === 0) return data
+
+  console.log({
+    data: sortableProp.sort(data, sortOrder),
+    sortableProp,
+    sortOrder,
   })
+  return sortableProp.sort(data, sortOrder)
 }
 
-SortGamesBy.propTypes = {
-  data: PropTypes.array.isRequired,
+SortByProperty.propTypes = {
+  data: PropTypes,
   sortableProp: PropTypes.instanceOf(SortableProperty),
-  sortOrder: PropTypes.oneOf([SortOrder.Ascending, SortOrder.Descending]),
+  sortOrder: PropTypes.oneOf(Object.values(SortOrder)),
 }

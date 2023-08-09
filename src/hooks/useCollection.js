@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   GetCollection,
   GetCollectionDetailed,
@@ -16,6 +16,8 @@ export function useCollection({
 }) {
   const [collection, setCollection] = useState(null)
 
+  const prevCollection = useRef(collection)
+
   useEffect(() => {
     const getCollectionFunction = mock
       ? detailed
@@ -29,9 +31,14 @@ export function useCollection({
       excludeSubtype: showExpansions ? '' : ItemType.Expansion,
       colFilter,
     })
-      .then((data) => setCollection(data))
+      .then((data) => {
+        if (prevCollection.current === data) return
+
+        prevCollection.current = data
+        return setCollection(data)
+      })
       .catch((e) => console.error(e))
   }, [username, mock, showExpansions, colFilter, detailed])
 
-  return [collection]
+  return { collection }
 }

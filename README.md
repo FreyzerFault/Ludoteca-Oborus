@@ -86,11 +86,11 @@ TODO:
 
 ✅ Evitar que se haga la misma búsqueda dos veces seguidas.
 ✅ Muestra primero la colección Owned
+✅ Haz que la búsqueda se haga automáticamente al escribir.
 
 - Usar la [Libreria BGG JS API](https://www.npmjs.com/package/@code-bucket/board-game-geek)
   (No es compatible si uso Vite. Da un error de sax.js cuando se usa)
 
-- Haz que la búsqueda se haga automáticamente al escribir.
 - Evita que se haga la búsqueda continuamente al escribir (debounce)
 - Busca en TODOS los Juegos de BGG y muestra de forma visual los que pertenecen a Oborus
 - Deja que el usuario pueda añadir un juego a la biblioteca de Oborus si no está, y que lo elimine si está

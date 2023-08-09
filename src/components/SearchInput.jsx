@@ -1,48 +1,61 @@
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { PropTypes } from 'prop-types'
+
 import 'boxicons'
-import { useState, useEffect, useRef } from 'react'
+import debounce from 'just-debounce-it'
+
+const DEBOUNCE_COOLDOWN = 500
 
 export function SearchInput({ searchAsTyping = false, onSearch }) {
   // STATES
   const [searchValue, setSearchValue] = useState('')
 
+  // DEBOUNCE
+  const searchDebounce = useCallback(
+    debounce((search) => onSearch(search), DEBOUNCE_COOLDOWN),
+    [onSearch]
+  )
+
   // EFFECTS
   useEffect(() => {
     lastSearch.current = searchValue
-    onSearch(searchValue)
-  }, [onSearch, searchValue])
+    searchDebounce(searchValue)
+  }, [searchDebounce, searchValue])
 
   // REFS
   const lastSearch = useRef('')
 
   // Submit del Formulario
-  const handleSubmit = (event) => {
+  const handleSubmit = useCallback((event) => {
     // Previene la actualizacion de la pagina
     event.preventDefault()
 
     const searchInputValue = event.target.search.value
 
     setSearchValue(searchInputValue)
-  }
+  }, [])
 
-  const handleReset = (e) => {
+  const handleReset = useCallback((e) => {
     setSearchValue('')
-  }
+  }, [])
 
   // Cambio en el input de Busqueda => Actualiza el estado asociado
-  const handleSearchInputChange = (event) => {
-    if (!searchAsTyping) return
+  const handleSearchInputChange = useCallback(
+    (event) => {
+      if (!searchAsTyping) return
 
-    const newValue = event.target.value
+      const newValue = event.target.value
 
-    // Se puede controlar que pone el usuario, no dejandole si no es valido, asi:
-    if (newValue.startsWith(' ')) return
+      // Se puede controlar que pone el usuario, no dejandole si no es valido, asi:
+      if (newValue.startsWith(' ')) return
 
-    // No busca si es el mismo termino
-    if (newValue === lastSearch.current) return
+      // No busca si es el mismo termino
+      if (newValue === lastSearch.current) return
 
-    setSearchValue(event.target.value)
-  }
+      setSearchValue(newValue)
+    },
+    [lastSearch, searchAsTyping]
+  )
 
   return (
     <form onSubmit={handleSubmit} onReset={handleReset}>

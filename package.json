@@ -13,6 +13,7 @@
     "@chakra-ui/react": "^2.7.0",
     "@code-bucket/board-game-geek": "^0.3.0",
     "boxicons": "^2.1.4",
+    "just-debounce-it": "^3.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-spinners": "^0.13.8",

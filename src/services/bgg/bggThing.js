@@ -133,7 +133,7 @@ export async function GetBoardGamesSortByVotes({ gameIds = [] }) {
 
 // ========================== MOCK ==========================
 
-export async function GetBoardGamesMock({ gameIds = [], otherData = [] }) {
+export async function GetBoardGamesMock() {
   return delay(300).then(() =>
     retry(
       () =>

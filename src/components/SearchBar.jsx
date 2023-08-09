@@ -10,6 +10,10 @@ import { ErrorMessage } from './ErrorMessage'
 
 // HOOKS
 import { useSearch } from '../hooks/useSearch'
+import { useMemo } from 'react'
+
+// UTILS
+import { SortByProperty, SortableProperties } from '../utils/sort'
 
 export function SearchBar({
   ComponentCardTemplateForResult,
@@ -24,16 +28,25 @@ export function SearchBar({
     myCollection,
   })
 
+  const sortedData = useMemo(
+    () =>
+      SortByProperty({
+        data: queryData,
+        sortableProp: SortableProperties.votes,
+      }),
+    [queryData]
+  )
+
   // COMPONENTE
   return (
     <>
       <section className='search-area'>
-        <SearchInput onSearch={setSearch} />
+        <SearchInput onSearch={setSearch} searchAsTyping />
 
         {/* Resultados de la búsqueda */}
         <DataList
           className={'search-results'}
-          data={queryData}
+          data={sortedData}
           ComponentTemplate={ComponentCardTemplateForResult}
         />
 

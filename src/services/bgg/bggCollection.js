@@ -1,6 +1,5 @@
 import { URL_BGG_API, ItemType, ColType, parseBggData } from './bgg'
-import { SortGamesBy, SortOrder } from '../../utils/sort'
-import { GetBoardGames, GetBoardGamesMock } from './bggThing'
+import { GetBoardGames } from './bggThing'
 import { retry } from '../../utils/retry'
 
 import { MOCK_DATA_URL } from '../localData'
@@ -137,11 +136,6 @@ function processData(data) {
       .slice(1),
   }))
   return mappedGames
-  // return SortGamesBy({
-  //   games: mappedGames,
-  //   sortBy: 'lastModified',
-  //   order: SortOrder.Descending,
-  // })
 }
 
 // ========================== MOCK ==========================

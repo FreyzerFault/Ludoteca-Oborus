@@ -16,7 +16,7 @@ const globalMock = false
 function App() {
   const [mock, setMock] = useState(globalMock)
 
-  const [collection] = useCollection({
+  const { collection } = useCollection({
     mock,
     showExpansions: true,
     username: 'Oborus',
