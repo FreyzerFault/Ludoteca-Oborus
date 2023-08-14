@@ -42,6 +42,7 @@ header > .oborus-logo {
   background: linear-gradient(
     2deg,
     #0055d3,
+    var(--main-color) 30%,
     var(--main-color) 50%,
     rgb(196, 245, 255) 90%
   );
@@ -51,8 +52,8 @@ header > .oborus-logo {
 
   animation: pulseOpacity 5s infinite;
 
-  top: 0;
   left: 0;
+  top: 0;
 }
 
 @keyframes pulseOpacity {
