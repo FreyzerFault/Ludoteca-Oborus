@@ -35,6 +35,9 @@ main > .oborus-logo {
   -webkit-text-fill-color: transparent;
 
   animation: pulseOpacity 9s infinite;
+
+  top: 0;
+  left: 0;
 }
 
 @keyframes pulseOpacity {
