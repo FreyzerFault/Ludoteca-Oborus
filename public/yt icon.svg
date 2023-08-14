@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.00 0.00 1024.00 708.00">
-<path stroke="#ff8080" stroke-width="2.00" fill="none" stroke-linecap="butt" vector-effect="non-scaling-stroke" d="
+  <path stroke="#ff8080" stroke-width="2.00" fill="none" stroke-linecap="butt" vector-effect="non-scaling-stroke" d="
   M 414.04 203.69
   A 0.36 0.36 0.0 0 0 413.50 204.01
   L 413.50 503.99
   A 0.36 0.36 0.0 0 0 414.04 504.31
   L 675.73 354.31
   A 0.36 0.36 0.0 0 0 675.73 353.69
-  L 414.04 203.69"
-/>
-<path fill="#ff0000" d="
+  L 414.04 203.69" />
+  <path fill="#008c99" d="
   M 594.32 3.50
   C 675.44 4.92 756.70 6.99 837.57 13.83
   C 862.34 15.93 885.73 18.21 907.37 25.03
@@ -42,9 +41,8 @@
   L 675.73 354.31
   A 0.36 0.36 0.0 0 0 675.73 353.69
   L 414.04 203.69
-  Z"
-/>
-<path fill="#ffffff" d="
+  Z" />
+  <path fill="#ffffff" d="
   M 414.04 203.69
   L 675.73 353.69
   A 0.36 0.36 0.0 0 1 675.73 354.31
@@ -52,6 +50,5 @@
   A 0.36 0.36 0.0 0 1 413.50 503.99
   L 413.50 204.01
   A 0.36 0.36 0.0 0 1 414.04 203.69
-  Z"
-/>
+  Z" />
 </svg>

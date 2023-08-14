@@ -328,7 +328,7 @@ header > .oborus-logo {
 }
 
 .boardgame-card .video-link > img {
-  background-color: red;
+  background-color: var(--secondary-color);
   border: 3px outset var(--secondary-color);
   border-radius: 10px;
 }
