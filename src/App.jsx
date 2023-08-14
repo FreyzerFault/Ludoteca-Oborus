@@ -37,9 +37,10 @@ function App() {
         />
       </section> */}
 
-      <OborusLogo />
-      <h1> </h1>
-      <h1 className='title'>LUDOTECA OBORUS</h1>
+      <header>
+        <OborusLogo />
+        <h1 className='title'>LUDOTECA OBORUS</h1>
+      </header>
 
       <SearchBar
         maxResults={24}

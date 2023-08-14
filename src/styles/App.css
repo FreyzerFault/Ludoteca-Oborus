@@ -3,26 +3,47 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: stretch;
-  /* text-align: center; */
-  width: 100%;
+  text-align: center;
   gap: 10px;
 }
 
-main > .oborus-logo {
-  height: 60px;
+header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+header > .oborus-logo {
   position: absolute;
   z-index: -1;
+  top: 100%;
+  left: 5%;
+  width: 15%;
+  /* max-width: 100px; */
+
+  translate: 0% -50%;
+}
+
+@media only screen and (min-width: 650px) {
+  header > .oborus-logo {
+    /* width: 500px; */
+  }
 }
 
 /* TITULO de la PAGINA */
 .title {
   position: relative;
-  text-align: center;
+  width: fit-content;
+
   font-size: 4em;
   font-weight: bold;
 }
 .title::before {
   position: absolute;
+  filter: drop-shadow(0px 2px 3px black);
   content: 'LUDOTECA OBORUS';
   background: linear-gradient(
     0deg,
@@ -298,6 +319,20 @@ main > .oborus-logo {
 
   padding: 0;
   rotate: -90deg;
+}
+
+.boardgame-card .video-link {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  top: 0;
+  right: 0;
+  background-color: red;
+}
+
+.boardgame-card .video-link > image {
+  width: 100px;
+  height: 100px;
 }
 
 @media only screen and (max-width: 300px) {
