@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import 'boxicons'
 
-import { OborusLogo } from './icons/OborusLogo'
+import { OborusLogoWithBackground } from './icons/OborusLogo'
 
 import { IMG_NOT_FOUND_URL } from '../services/localData'
 
@@ -18,7 +18,7 @@ export function BoardGameCard({ data }) {
       className={`boardgame-card ${data.owned ? 'owned' : ''}`}
       data-testid='boardgame-card'
     >
-      {data.owned && <OborusLogo />}
+      {/* {data.owned && <OborusLogoWithBackground />} */}
 
       <a
         className='clickable'
