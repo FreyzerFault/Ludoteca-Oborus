@@ -27,12 +27,6 @@ header > .oborus-logo {
   translate: 0% -50%;
 }
 
-@media only screen and (min-width: 650px) {
-  header > .oborus-logo {
-    /* width: 500px; */
-  }
-}
-
 /* TITULO de la PAGINA */
 .title {
   position: relative;
@@ -311,7 +305,7 @@ header > .oborus-logo {
   width: 50px;
   font-size: 1.5em;
 
-  background-color: var(--main-color);
+  background-color: var(--secondary-color);
   border-radius: 100% 100% 20% 20%;
   border: 1px double #555;
   border-width: 3px 3px 0 0px;
@@ -323,16 +317,15 @@ header > .oborus-logo {
 
 .boardgame-card .video-link {
   position: absolute;
-  width: max-content;
-  height: max-content;
   top: 0;
   right: 0;
-  background-color: red;
+  width: 44px;
 }
 
-.boardgame-card .video-link > image {
-  width: 100px;
-  height: 100px;
+.boardgame-card .video-link > img {
+  background-color: red;
+  border: 3px outset var(--secondary-color);
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 300px) {

@@ -55,12 +55,14 @@ export function BoardGameCard({ data }) {
       </a>
       <a
         className='video-link'
+        target='_blank'
+        rel='noreferrer'
         href={`https://www.youtube.com/results?search_query=como+jugar+${data.name.replaceAll(
           ' ',
           '+'
         )}`}
       >
-        <image src='/videotutorial icon.svg'></image>
+        <img src='/yt icon.svg'></img>
       </a>
     </div>
   )
