@@ -48,7 +48,7 @@ export function SearchBar({
     <>
       <section className='search-area'>
         <section className='filters'>
-          <span>{filterOwned ? 'Juegos de Oborus' : 'Todo'}</span>
+          <span>{filterOwned ? 'Juegos de Oborus' : 'Todos'}</span>
           <Toggle
             defaultChecked
             checked={filterOwned}
