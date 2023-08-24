@@ -18,7 +18,7 @@ header {
 
 header > .oborus-logo {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   top: 100%;
   left: 5%;
   width: 15%;
@@ -75,6 +75,7 @@ header > .oborus-logo {
   justify-content: center;
   align-items: stretch;
   text-align: center;
+  gap: 3px;
 
   border: 2px solid #111;
   border-radius: 8px;
@@ -121,9 +122,18 @@ header > .oborus-logo {
   width: 24px;
 }
 
+.search-area .filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
+
 .search-results {
   margin-top: 10px;
 }
+
+/* Filter OWNED Toggle */
 
 /* COLECCION */
 .boardgame-collection {
@@ -136,8 +146,8 @@ header > .oborus-logo {
   text-align: center;
 
   width: 100%;
-  margin-top: 30px;
   gap: 10px;
+  margin-top: 20px;
 
   /* background-color: var(--background-alt); */
   border-radius: 50px;
@@ -152,9 +162,55 @@ header > .oborus-logo {
 }
 
 .collection-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   flex-grow: 1;
   text-align: center;
-  margin: 0;
+  margin: 10px 20px;
+  height: 3rem;
+
+  font-size: 3em;
+  color: var(--main-color);
+
+  transition-property: font-size;
+  transition: 0.5s;
+}
+.collection-title > span {
+  position: relative;
+  display: inline-block;
+
+  transition-property: font-size;
+  transition: 0.5s;
+
+  font-size: 0em;
+}
+.collection-title .oborus-logo {
+  position: absolute;
+  right: -3rem;
+  height: 0rem;
+
+  transition-property: height;
+  transition: 0.5s;
+}
+.collection-title:hover > span {
+  display: inline-block;
+  font-size: 1.5rem;
+}
+.collection-title:hover {
+  font-size: 1.5em;
+}
+.collection-title:hover .oborus-logo {
+  height: 2rem;
+}
+
+@media only screen and (max-width: 400px) {
+  .collection-title {
+    flex-direction: row;
+    /* gap: 0px; */
+  }
 }
 
 /* Sort by Select */

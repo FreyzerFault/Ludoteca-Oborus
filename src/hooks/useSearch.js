@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 // SERVICES
 import { GetBoardGames, GetBoardGamesMock } from '../services/bgg/bggThing'
@@ -9,7 +9,12 @@ class CancelError extends Error {}
 
 // Gestiona la busqueda de un termino
 // Pasale la funcion que busca para que actualice los resultados
-export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
+export function useSearch({
+  maxResults = 24,
+  mock,
+  myCollection = [],
+  filterOwned = true,
+}) {
   const [queryData, setQueryData] = useState(null)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -18,6 +23,18 @@ export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
   // La peticion de busqueda mas reciente (Pueden haber mas de una peticion en curso)
   // Hay que cancelar cualquiera que no sea la mas reciente
   const mostRecentRequest = useRef(null)
+
+  const setQueryDataHandle = useCallback(
+    (data) => {
+      if (filterOwned && Array.isArray(data))
+        data = data.filter((game) =>
+          myCollection.some((ownedGame) => ownedGame.id === game.id)
+        )
+      setQueryData(data)
+      return data
+    },
+    [filterOwned, myCollection]
+  )
 
   useEffect(() => {
     setError(null)
@@ -40,6 +57,9 @@ export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
         // Si esta peticion deja de ser la mas reciente no es relevante, por lo que la cancelamos
         if (thisRequest !== mostRecentRequest.current)
           throw new CancelError('Busqueda cancelada')
+
+        // Si esta activado el Filtro de "En Propiedad" (filterOwned) se busca que solo salgan los de la coleccion que se pasa
+        if (filterOwned) data = setQueryDataHandle(data)
 
         // Hacemos una peticion extra para conseguir mas datos de cada juego encontrado
         return boardGamesRequestFunc({ gameIds: data.map((item) => item.id) })
@@ -76,7 +96,7 @@ export function useSearch({ maxResults = 24, mock, myCollection = [] }) {
         // Al terminar siempre deja de estar cargando
         setLoading(false)
       }))
-  }, [mock, maxResults, myCollection, search])
+  }, [mock, maxResults, myCollection, search, filterOwned, setQueryDataHandle])
 
   return { setSearch, queryData, error, loading }
 }

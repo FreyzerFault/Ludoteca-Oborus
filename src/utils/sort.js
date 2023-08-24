@@ -86,11 +86,11 @@ export const SortableProperties = {
 export function SortByProperty({ data, sortableProp, sortOrder }) {
   if (!data || data?.length === 0) return data
 
-  console.log({
-    data: sortableProp.sort(data, sortOrder),
-    sortableProp,
-    sortOrder,
-  })
+  // console.log({
+  //   data: sortableProp.sort(data, sortOrder),
+  //   sortableProp,
+  //   sortOrder,
+  // })
   return sortableProp.sort(data, sortOrder)
 }
 

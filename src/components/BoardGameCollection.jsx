@@ -8,6 +8,7 @@ import { DataList } from './DataList'
 import { useSort } from '../hooks/useSort'
 import { SortableProperties, SortableProperty } from '../utils/sort'
 import { LoadingSpinner } from './icons/LoadingSpinner'
+import { OborusLogo, OborusLogoWithBackground } from './icons/OborusLogo'
 
 export function BoardGameCollection({
   username = 'oborus',
@@ -42,7 +43,11 @@ export function BoardGameCollection({
       {collection !== null ? (
         <section className='collection-header'>
           <h1 className='collection-title'>
-            {collection.length} Juegos de {username}
+            {collection.length}
+            <span>
+              {' '}
+              Juegos en {username} <OborusLogoWithBackground />
+            </span>
           </h1>
           <SelectSort
             handleSort={handleSort}

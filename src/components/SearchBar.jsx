@@ -7,10 +7,13 @@ import { LoadingSpinner } from './icons/LoadingSpinner'
 // COMPONENTS
 import { DataList } from './DataList'
 import { ErrorMessage } from './ErrorMessage'
+import { Toggle } from './Toggle'
+import { BGGLogo } from './icons/BGGLogo'
+import { OborusLogo } from './icons/OborusLogo'
 
 // HOOKS
+import { useState, useMemo } from 'react'
 import { useSearch } from '../hooks/useSearch'
-import { useMemo } from 'react'
 
 // UTILS
 import { SortByProperty, SortableProperties } from '../utils/sort'
@@ -21,11 +24,14 @@ export function SearchBar({
   mock = false,
   myCollection = [],
 }) {
+  const [filterOwned, setFilterOwned] = useState(true)
+
   // Custom HOOKS
   const { setSearch, queryData, error, loading } = useSearch({
     maxResults,
     mock,
     myCollection,
+    filterOwned,
   })
 
   const sortedData = useMemo(
@@ -41,7 +47,18 @@ export function SearchBar({
   return (
     <>
       <section className='search-area'>
-        <SearchInput onSearch={setSearch} searchAsTyping />
+        <section className='filters'>
+          <span>{filterOwned ? 'Juegos de Oborus' : 'Todo'}</span>
+          <Toggle
+            defaultChecked
+            checked={filterOwned}
+            onChecked={setFilterOwned}
+            uncheckedComponent={<BGGLogo />}
+            checkedComponent={<OborusLogo />}
+          />
+        </section>
+
+        <SearchInput onSearch={setSearch} />
 
         {/* Resultados de la búsqueda */}
         <DataList
@@ -65,4 +82,5 @@ SearchBar.propTypes = {
   maxResults: PropTypes.number,
   mock: PropTypes.bool,
   myCollection: PropTypes.array,
+  filterOwned: PropTypes.bool,
 }
