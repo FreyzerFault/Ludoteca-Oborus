@@ -95,7 +95,7 @@ function Players({ minPlayers, maxPlayers }) {
         {!isNaN(minPlayers) && !isNaN(maxPlayers) && (
           <span>
             {minPlayers}
-            {maxPlayers !== minPlayers ? `- ${maxPlayers}` : ''}
+            {maxPlayers !== minPlayers ? ` - ${maxPlayers}` : ''}
           </span>
         )}
         {/* Solo tiene MÍNIMO de Jugadores */}
