@@ -73,7 +73,7 @@ header > .oborus-logo {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (width <= 600px) {
   .title {
     font-size: 4em;
   }
@@ -219,7 +219,7 @@ header > .oborus-logo {
   height: 2rem;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (width <= 400px) {
   .collection-title {
     flex-direction: row;
     /* gap: 0px; */
@@ -250,7 +250,7 @@ header > .oborus-logo {
 }
 
 /* Header en Pantalla ANCHA */
-@media only screen and (min-width: 900px) {
+@media only screen and (width >= 900px) {
   .collection-header {
     flex-direction: row;
     align-items: center;
@@ -403,7 +403,7 @@ header > .oborus-logo {
   scale: 110%;
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (width <= 300px) {
   .search-results {
     display: flex;
     flex-direction: column;
@@ -430,7 +430,7 @@ header > .oborus-logo {
   }
 }
 
-@media only screen and (min-width: 300px) {
+@media only screen and (width >= 300px) {
   .search-results {
     display: grid;
     gap: 5px;
@@ -470,7 +470,7 @@ header > .oborus-logo {
   }
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (width <= 580px) {
   .search-results {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
