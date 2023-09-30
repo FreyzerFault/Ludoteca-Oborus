@@ -144,6 +144,10 @@ header > .oborus-logo {
 
 .search-results {
   margin-top: 10px;
+
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
 
 /* Filter OWNED Toggle */
