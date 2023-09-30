@@ -403,33 +403,6 @@ header > .oborus-logo {
   scale: 110%;
 }
 
-@media only screen and (width <= 300px) {
-  .search-results {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 10px;
-    margin-top: 10px;
-  }
-
-  .boardgame-card .clickable {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 120px;
-    padding: 10px 20px;
-    gap: 10px;
-  }
-
-  .boardgame-card .players,
-  .boardgame-card .playtime {
-    scale: 80%;
-    translate: 0 -5px;
-  }
-}
-
 @media only screen and (width >= 300px) {
   .search-results {
     display: grid;
@@ -473,6 +446,33 @@ header > .oborus-logo {
 @media only screen and (width <= 580px) {
   .search-results {
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+}
+
+@media only screen and (width <= 300px) {
+  .search-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .boardgame-card .clickable {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 120px;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+
+  .boardgame-card .players,
+  .boardgame-card .playtime {
+    scale: 80%;
+    translate: 0 -5px;
   }
 }
 
