@@ -14,45 +14,42 @@ export function BoardGameCard({ data }) {
   if (!img) img = IMG_NOT_FOUND_URL
 
   return (
-    <div
+    <a
       className={`boardgame-card ${data.owned ? 'owned' : ''}`}
+      href={`https://boardgamegeek.com/boardgame/${data.id}`}
+      target='_blank'
+      rel='noreferrer'
       data-testid='boardgame-card'
     >
       {/* {data.owned && <OborusLogoWithBackground />} */}
 
-      <a
-        className='clickable'
-        href={`https://boardgamegeek.com/boardgame/${data.id}`}
-        target='_blank'
-        rel='noreferrer'
-      >
-        {/* Jugadores Min - Max */}
-        <Players minPlayers={data.minPlayers} maxPlayers={data.maxPlayers} />
+      {/* Jugadores Min - Max */}
+      <Players minPlayers={data.minPlayers} maxPlayers={data.maxPlayers} />
 
-        {/* Tiempo de Juego Min - Max ó Avg */}
-        <Playtime
-          avgPlaytime={data.avgPlayTime}
-          minPlaytime={data.minPlaytime}
-          maxPlaytime={data.maxPlaytime}
+      {/* Tiempo de Juego Min - Max ó Avg */}
+      <Playtime
+        avgPlaytime={data.avgPlayTime}
+        minPlaytime={data.minPlaytime}
+        maxPlaytime={data.maxPlaytime}
+      />
+
+      {/* MANUAL */}
+      {/* <Manual title={data.name} /> */}
+
+      {/* Imagen del Juego */}
+      <div className='thumbnail-container'>
+        <img
+          className='thumbnail'
+          src={img}
+          alt={`${data.name} Thumbnail`}
+          loading='lazy'
         />
+        {/* Dificultad del Juego */}
+        <Difficulty difficulty={data.difficulty} />
+      </div>
+      {/* Nombre del Juego */}
+      <p className='name'>{data.name}</p>
 
-        {/* MANUAL */}
-        {/* <Manual title={data.name} /> */}
-
-        {/* Imagen del Juego */}
-        <div className='thumbnail-container'>
-          <img
-            className='thumbnail'
-            src={img}
-            alt={`${data.name} Thumbnail`}
-            loading='lazy'
-          />
-          {/* Dificultad del Juego */}
-          <Difficulty difficulty={data.difficulty} />
-        </div>
-        {/* Nombre del Juego */}
-        <p className='name'>{data.name}</p>
-      </a>
       <a
         className='video-link'
         target='_blank'
@@ -64,7 +61,7 @@ export function BoardGameCard({ data }) {
       >
         <img src='/yt icon.svg'></img>
       </a>
-    </div>
+    </a>
   )
 }
 

@@ -9,7 +9,7 @@
   --highlight-color: #b4004d;
   --background-body: #202b38;
   --background: #161f27;
-  --background-alt: #1a242f;
+  --background-alt: #171e27;
   --selection: var(--complementary-color);
   --text-main: #dbdbdb;
   --text-bright: #fff;
@@ -49,7 +49,12 @@ body {
   color: #dbdbdb;
   color: var(--text-main);
   background: #202b38;
-  background: var(--background-body);
+  background: linear-gradient(
+    176deg,
+    var(--background-body) 50%,
+    var(--background-alt) 100%
+  );
+  background-attachment: fixed;
   text-rendering: optimizeLegibility;
 }
 

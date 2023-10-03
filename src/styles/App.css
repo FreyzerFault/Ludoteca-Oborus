@@ -190,6 +190,7 @@ header > .oborus-logo {
   height: 3rem;
 
   font-size: 3em;
+  font-family: oborus;
   color: var(--main-color);
 
   transition-property: font-size;
@@ -272,10 +273,9 @@ header > .oborus-logo {
   position: relative;
   background-color: var(--background-alt);
   border-radius: 15px;
-}
-
-.boardgame-card .clickable {
   color: var(--text-main);
+  padding: 10px;
+  gap: 10px;
 }
 
 /* .boardgame-card .oborus-logo {
@@ -322,7 +322,11 @@ header > .oborus-logo {
   font-weight: bold;
   white-space: nowrap;
 
-  background-color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+  background: linear-gradient(
+    176deg,
+    var(--secondary-color) 50%,
+    color-mix(in srgb, #005258 80%, transparent)
+  );
   box-shadow: 0 0 5px #111;
   padding: 2px 4px;
   border-radius: 10px;
@@ -340,28 +344,28 @@ header > .oborus-logo {
   top: 65px;
 }
 
-/* .boardgame-card .players span,
-.boardgame-card .playtime span {
-  writing-mode: vertical-lr;
-  text-orientation: sideways-right;
-} */
-
-.boardgame-card .clickable:hover {
+/* ANIMACION HOVER */
+.boardgame-card {
+  transition: 0.1s;
+}
+.boardgame-card:hover {
   color: var(--text-bright);
   font-weight: normal;
   font-size: 1em;
+  scale: 115%;
+  transition: 0.2s;
+  z-index: 3;
 }
-
-.boardgame-card .clickable:hover .thumbnail-container {
-  scale: 105%;
-}
-.boardgame-card .clickable:hover .thumbnail {
+.boardgame-card:hover .thumbnail {
   box-shadow: 0px 2px 20px black;
+  scale: 105%;
+  transition: 0.1s;
 }
-
-.boardgame-card .clickable:hover .name {
+.boardgame-card:hover .name {
   scale: 105%;
   text-shadow: 0px 2px 20px black;
+  font-weight: 400;
+  transition: 0.2s;
 }
 
 .boardgame-card.owned {
@@ -380,10 +384,13 @@ header > .oborus-logo {
 
   width: 50px;
   font-size: 1.5em;
-
-  background-color: var(--secondary-color);
+  background: linear-gradient(
+    100deg,
+    var(--secondary-color) 50%,
+    color-mix(in srgb, #005258 100%, transparent)
+  );
   border-radius: 100% 100% 20% 20%;
-  border: 1px double #555;
+  border: 1px solid #005258;
   border-width: 3px 3px 0 0px;
   /* box-shadow: -2px -2px 2px 0 #111; */
 
