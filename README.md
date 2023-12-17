@@ -1,8 +1,8 @@
-# Aplicación para Buscar Juegos de Mesa en Oborus
+# Aplicación para Visualizar la Ludoteca de Oborus
 
-Por ahora es algo simple. Usa la API de BGG para obtener datos de la colección actual de Oborus.
+Usa la API de BGG para obtener datos de la colección actual de Oborus, a tiempo real.
 
-El objetivo es crear un buscador que recoja TODOS los juegos de BGG y permita señalar cuáles pertenecen a la Biblio de Oborus.
+Permite hacer búsquedas de Juegos de Mesa en toda la base de datos de BGG, pudiendo filtrar por aquellos en propiedad de Oborus
 
 ## API de BGG
 
@@ -43,45 +43,6 @@ Si llega la 1º Respuesta con un mensaje de que se está procesando, debemos ree
 - Búsqueda de **Expansiones** de Juegos de Mesa:
   [/search?query=[Búsqueda]&type=boardgameexpansion](https://api.geekdo.com/xmlapi2/search?query=Virus&type=boardgameexpansion)
 
-### Publicar DATOS
-
-Endpoint para hacer peticiones POST o PUT:
-
-https://boardgamegeek.com/geekplay.php
-
-Ejemplos de Código de la comunidad donde se hacen peticiones POST
-
-- [Logear Gameplays en powershell](https://boardgamegeek.com/thread/2987087/wanting-bulk-upload-played-games)
-- [Logear Gameplays en powershell](https://github.com/Kickbut101/BGGPlayUpload/blob/96c6c7dba5738f8ee039e35eeb2531e83263a321/BGGPlayUpload2.2.ps1)
-
----
-
-## API de BGA (Board Game Atlas)
-
-Esta API tiene menos datos que BGG y pero se pueden actualizar los datos de usuario con los de BGG, pero no en el sentido contrario. Es decir, no puedes pasar tus datos de BGA a BGG.
-
-La he usado por comodidad y sencillez. Sus datos están en JSON y mejor estructurados, lo que me facilita la consulta de ello. Pero al final mi objetivo es que todos los datos estén sincronizados con BGG, que es la plataforma principal que usan los socios de Oborus.
-
-[Documentación de la API de BGA (Board Game Atlas)](https://www.boardgameatlas.com/api/docs)
-
-La API pide una API Key, necesaria para TODAS las peticiones. Se añaden como parámetro a las URL (&client_id=\*\*\*\*\*\*\*\*\*\*).
-
-Consigue la API Key en la propia página web registrando tu email.
-
-- URL de la API de BGA:
-  [https://api.boardgameatlas.com/api/](https://api.boardgameatlas.com/api/)
-
-- URI Búsqueda de Juego por Nombre (solo 1):
-  ["/search?limit=1&name=[Nombre del Juego]&fields=[propiedades del juego (name,description)]&fuzzy_match=true&client_id=..."](https://api.boardgameatlas.com/api/search?limit=1&name=Catan&fields=name,description&fuzzy_match=true&client_id=WnTK7L9hmX)
-
-- URI Búsqueda Juego/s por ID:
-  [/search?limit=1&ids=[IDs de los Juegos]&fields=[propiedades del juego (name,description)]&fuzzy_match=true&client_id=...](https://api.boardgameatlas.com/api/search?limit=1&ids=LvcBJmB8US&fields=name,description&fuzzy_match=true&client_id=JLBr5npPhV)
-
-- URI Imagen de BGA
-  [images?game_id=[ID del Juego]&limit=20&client_id=...](https://api.boardgameatlas.com/api/game/images?game_id=LvcBJmB8US&limit=20&client_id=WnTK7L9hmX)
-
----
-
 TODO:
 
 ✅ Evitar que se haga la misma búsqueda dos veces seguidas.
@@ -89,9 +50,3 @@ TODO:
 ✅ Haz que la búsqueda se haga automáticamente al escribir.
 ✅ Evita que se haga la búsqueda continuamente al escribir (debounce)
 ✅ Busca en TODOS los Juegos de BGG y muestra de forma visual los que pertenecen a Oborus
-
-- Usar la [Libreria BGG JS API](https://www.npmjs.com/package/@code-bucket/board-game-geek)
-  (No es compatible si uso Vite. Da un error de sax.js cuando se usa)
-
-- Deja que el usuario pueda añadir un juego a la biblioteca de Oborus si no está, y que lo elimine si está
-  (Para ello necesito acceso a la API por medio de https://boardgamegeek.com/geekplay.php, y no esta permitido por ahora)
